@@ -1,4 +1,4 @@
-# Weather Mockup - Customization
+# Weather Mockup - Hands on
 
 기본으로 제공된 Weather Mockup 코드에 개인적으로 기능과 데이터를 추가하여 확장했습니다.
 
