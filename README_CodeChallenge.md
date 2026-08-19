@@ -412,6 +412,39 @@ Vue 컴포넌트에서 스타일을 적용하는 방법을 학습했습니다.
 
 ---
 
+## Reactive State
+
+Vue에서 데이터를 반응형 상태로 관리하는 `ref()`와 `reactive()`를 학습했습니다.
+
+### ref()를 이용한 반응형 상태
+
+`ref()`를 사용하여 숫자, 문자열, Boolean, 배열, 객체 등의 데이터를 반응형 상태로 관리했습니다.
+
+```javascript
+const count = ref(0)
+const name = ref('홍길동')
+const isActive = ref(true)
+const items = ref(['사과', '배'])
+
+const user = ref({
+  name: '이순신',
+  age: 30,
+})
+```
+`ref()`로 생성한 값은 JavaScript에서 `.value`를 통해 접근하고 변경합니다.
+
+### ref()와 reactive()의 차이
+| 구분 | ref() | reactive() |
+|---|---|---|
+| 기본 사용 대상 | 모든 타입 | 객체, 배열 |
+| 값 접근 | `.value` 필요 | 직접 접근 |
+| 객체 관리 | 가능 | 가능 |
+| 배열 관리 | 가능 | 가능 |
+| 템플릿 사용 | `.value` 생략 | 직접 사용 |
+
+`ref()`는 숫자, 문자열, Boolean과 같은 단순한 값부터 객체와 배열까지 폭넓게 사용할 수 있으며, 
+`reactive()`는 객체나 배열을 직접 반응형으로 관리할 때 적합하다는 차이를 이해했습니다.
+
 ## 실행 방법
 
 `npm install` 명령어로 필요한 패키지를 설치한 후 `npm run dev` 명령어를 사용하여 개발 서버를 실행합니다.
