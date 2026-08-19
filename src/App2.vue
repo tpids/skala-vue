@@ -2,15 +2,17 @@
 // 1. Reactive State
 import ReactiveRef from './components/practices/composition/ReactiveRef.vue'
 import ReactiveReactive from './components/practices/composition/ReactiveReactive.vue'
-// // 2. Computed & Watchers
-// import ComputedBasic from './components/practices/composition/ComputedBasic.vue'
-// import WatchersBasic from './components/practices/composition/WatchersBasic.vue'
-// import WatchersMulti from './components/practices/composition/WatchersMulti.vue'
-// import WatchersDeep from './components/practices/composition/WatchersDeep.vue'
-// import WatchersReactive from './components/practices/composition/WatchersReactive.vue'
-// import WatchersRefArray from './components/practices/composition/WatchersRefArray.vue'
-// import WatchersReactiveArray from './components/practices/composition/WatchersReactiveArray.vue'
-// import WatchersWatchEffect from './components/practices/composition/WatchersWatchEffect.vue'
+
+// 2. Computed & Watchers
+import ComputedBasic from './components/practices/composition/ComputedBasic.vue'
+import WatchersBasic from './components/practices/composition/WatchersBasic.vue'
+import WatchersMulti from './components/practices/composition/WatchersMulti.vue'
+import WatchersDeep from './components/practices/composition/WatchersDeep.vue'
+import WatchersReactive from './components/practices/composition/WatchersReactive.vue'
+import WatchersRefArray from './components/practices/composition/WatchersRefArray.vue'
+import WatchersReactiveArray from './components/practices/composition/WatchersReactiveArray.vue'
+import WatchersWatchEffect from './components/practices/composition/WatchersWatchEffect.vue'
+
 // // 3. Component Lifecycle
 // import LifecycleParent from '@/components/practices/component/LifecycleParent.vue'
 // // 4. Props & Emits
