@@ -1,38 +1,260 @@
-# skala-vue
+# SKALA-Vue
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue.js 실습 프로젝트입니다.
 
-## Recommended IDE Setup
+## 1. 1일차 실습
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### 1-1. Vue 반응성(Reactivity)
 
-## Recommended Browser Setup
+일반 JavaScript 변수와 Vue의 반응성 변수인 `ref()`의 차이를 확인했습니다.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- 일반 변수 `normalCount`
+  - `let`으로 선언
+  - 값이 변경되어도 Vue가 변경 사항을 추적하지 않음
+- 반응성 변수 `vueCount`
+  - `ref()`를 사용하여 선언
+  - 값이 변경되면 Vue가 변경 사항을 감지하여 화면을 자동으로 업데이트
 
-## Customize configuration
+### 1-2. 데이터 출력 및 JavaScript 표현식
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Vue 템플릿의 `{{ }}` 문법을 이용하여 데이터를 화면에 출력했습니다.
 
-## Project Setup
+- 변수의 값을 화면에 출력
+- `toUpperCase()`를 이용한 문자열 변환
+- `Math.random()`을 이용한 랜덤 숫자 출력
 
-```sh
-npm install
-```
+### 1-3. 1일차 Customization
 
-### Compile and Hot-Reload for Development
+- 일반 변수와 반응성 변수의 차이를 비교할 수 있도록 카운터 구현
+- `ref()`를 이용한 반응성 데이터 구현
+- 버튼 클릭을 이용한 값 변경
+- 문자열 `toUpperCase()`를 이용한 데이터 가공
+- `Math.random()`을 이용한 랜덤 숫자 출력
 
-```sh
-npm run dev
-```
+---
 
-### Compile and Minify for Production
+## 2. 2일차 실습
 
-```sh
-npm run build
-```
+### 2-1. v-bind 디렉티브
+
+`v-bind`를 이용하여 HTML 요소의 속성을 동적으로 연결하는 방법을 학습했습니다.
+
+Vue에서는 `v-bind:속성`을 `:속성`으로 축약하여 사용할 수 있습니다.
+
+- 동적 링크 연결
+- 동적 이미지 연결
+- 버튼 활성화 및 비활성화 제어
+- 객체 형식의 클래스 바인딩
+- 배열 형식의 클래스 바인딩
+- 객체 형식의 스타일 바인딩
+- 배열 형식의 스타일 바인딩
+- `v-bind` 단축 문법 학습
+
+### 2-2. 클래스 바인딩
+
+객체 형식과 배열 형식의 클래스 바인딩을 학습했습니다.
+
+- `isWarning` 값에 따라 `text-danger` 클래스 적용
+- `themeClass`와 조건에 따른 클래스를 조합
+- 경고 상태에 따라 `border-red` 또는 `border-gray` 적용
+
+### 2-3. 스타일 바인딩
+
+데이터에 따라 CSS 스타일을 동적으로 변경했습니다.
+
+- `textColor` 값을 변경하여 글자 색상 토글
+- `boxWidth` 값을 입력받아 박스의 가로 크기 변경
+- 여러 스타일 객체를 배열 형식으로 조합
+
+### 2-4. v-bind 단축 문법
+
+속성 이름과 변수 이름이 동일한 경우 다음과 같이 사용할 수 있다는 것을 학습했습니다.
+
+`<div :id>`
+`<img :src>`
+
+---
+
+## 3. v-html 디렉티브
+
+문자열에 포함된 HTML 태그를 실제 HTML 요소로 렌더링하는 `v-html`을 학습했습니다.
+
+일반 보간법을 사용하면 HTML 태그가 문자열 그대로 출력되지만 `v-html`을 사용하면 HTML 태그가 실제 HTML로 해석됩니다.
+
+### XSS 학습
+
+사용자가 입력한 값을 `v-html`로 그대로 출력하면 XSS 공격에 노출될 수 있다는 것을 확인했습니다.
+
+따라서 외부에서 전달받은 신뢰할 수 없는 데이터를 `v-html`로 직접 출력하는 것은 주의해야 합니다.
+
+---
+
+## 4. v-for 디렉티브
+
+배열과 객체의 데이터를 반복해서 화면에 출력하는 방법을 학습했습니다.
+
+### 배열 렌더링
+
+- `fruits` 배열을 이용하여 과일 목록 출력
+- `index`를 이용하여 순번 표시
+
+### 객체 렌더링
+
+- `user` 객체의 key와 value를 반복하여 출력
+- 객체의 index도 함께 출력
+
+### 배열 내부 객체 렌더링
+
+- `items` 배열에 포함된 객체의 데이터를 반복 출력
+- 각 객체의 고유한 `id`를 `:key`로 사용
+
+반복 렌더링에서는 각 요소를 구분하기 위해 `:key`를 사용하는 것을 학습했습니다.
+
+---
+
+## 5. v-if / v-else-if / v-else
+
+조건에 따라 HTML 요소를 렌더링하는 방법을 학습했습니다.
+
+### 로그인 상태
+
+- `isLogged` 값이 `true`이면 회원 전용 화면 표시
+- `false`이면 로그인 안내 화면 표시
+- 버튼을 이용하여 로그인 상태 토글
+
+### 점수에 따른 학점
+
+입력한 점수에 따라 조건을 나누어 학점을 표시했습니다.
+
+- 90점 이상 → A
+- 80점 이상 → B
+- 70점 이상 → C
+- 70점 미만 → F
+
+---
+
+## 6. v-show 디렉티브
+
+`v-show`를 이용하여 요소의 표시 여부를 제어했습니다.
+
+`v-show`는 조건이 `false`가 되어도 요소 자체를 제거하지 않고 CSS의 `display: none`을 적용하여 화면에서 숨기는 방식입니다.
+
+---
+
+## 7. v-text 디렉티브
+
+`v-text`를 이용하여 요소의 텍스트 내용을 변경하는 방법을 학습했습니다.
+
+`{{ }}` 보간법과 비교하여 HTML 태그가 포함된 문자열을 텍스트 그대로 출력할 수 있다는 것을 확인했습니다.
+
+---
+
+## 8. v-text와 v-html 비교
+
+같은 문자열을 `v-text`와 `v-html`로 출력하여 차이점을 확인했습니다.
+
+- `v-text` → HTML 태그를 문자 그대로 출력
+- `v-html` → HTML 태그를 실제 HTML로 해석하여 출력
+
+---
+
+## 9. v-cloak 디렉티브
+
+Vue가 로딩되는 과정에서 템플릿의 `{{ }}` 문법이 잠시 노출되는 문제를 방지하기 위해 `v-cloak`을 학습했습니다.
+
+`v-cloak`은 Vue가 해당 영역을 처리하기 전까지 요소를 숨겨 화면에 Vue 템플릿 문법이 노출되는 것을 방지합니다.
+
+CSS에서 `[v-cloak]`을 숨겨 Vue가 마운트된 이후 화면에 표시되도록 구성했습니다.
+
+---
+
+## 10. v-pre 디렉티브
+
+`v-pre`를 사용하면 해당 영역의 Vue 템플릿 컴파일을 건너뛸 수 있다는 것을 학습했습니다.
+
+`v-pre`가 적용된 영역에서는 `{{ message }}`가 Vue 데이터로 처리되지 않고 그대로 출력됩니다.
+
+---
+
+## 11. v-once 디렉티브
+
+`v-once`를 이용하여 요소를 최초 한 번만 렌더링하도록 학습했습니다.
+
+일반 변수는 값이 변경되면 화면이 업데이트되지만 `v-once`가 적용된 영역은 최초 렌더링된 값으로 유지됩니다.
+
+이를 통해 특정 영역의 데이터를 최초 렌더링 시점의 값으로 고정하는 방법을 확인했습니다.
+
+---
+
+## 12. v-memo 디렉티브
+
+`v-memo`를 이용하여 특정 데이터가 변경될 때만 해당 영역을 다시 렌더링하도록 학습했습니다.
+
+`name`을 기준으로 메모이제이션을 적용했습니다.
+
+- `name` 변경 → 해당 영역 갱신
+- `age`만 변경 → 해당 영역의 업데이트를 건너뜀
+
+이를 통해 Vue에서 불필요한 렌더링을 줄이는 방법을 확인했습니다.
+
+---
+
+## 13. 2일차 Customization
+
+이번 실습에서는 Vue의 다양한 디렉티브를 직접 사용하면서 기본 예제에 여러 기능을 추가하고 확인했습니다.
+
+- 네이버 링크를 이용한 동적 URL 바인딩
+- Vue 공식 로고를 이용한 동적 이미지 바인딩
+- 버튼 활성화 및 비활성화 토글 기능 구현
+- 객체 및 배열 형태의 클래스 바인딩
+- 조건에 따른 테두리 및 경고 스타일 변경
+- 인라인 스타일의 동적 변경
+- 입력값에 따른 박스 크기 변경
+- `v-bind` 단축 문법 적용
+- `v-html`을 이용한 HTML 렌더링
+- `v-html` 사용 시 발생할 수 있는 XSS 문제 확인
+- 배열, 객체, 객체 배열의 반복 렌더링
+- 로그인 상태에 따른 조건부 렌더링
+- 점수에 따른 학점 표시
+- `v-show`를 이용한 화면 표시 및 숨김
+- `v-text`와 `v-html`의 차이 비교
+- `v-cloak`을 이용한 초기 화면 깜빡임 방지
+- `v-pre`를 이용한 Vue 컴파일 제외
+- `v-once`를 이용한 최초 렌더링 값 고정
+- `v-memo`를 이용한 선택적 렌더링
+
+---
+
+## 14. 학습 내용 정리
+
+2일차에는 Vue에서 제공하는 다양한 디렉티브(Directive)를 학습했습니다.
+
+`v-bind`를 이용하면 HTML 요소의 속성을 데이터와 연결할 수 있으며, 클래스와 스타일도 데이터에 따라 동적으로 변경할 수 있다는 것을 확인했습니다.
+
+`v-for`를 이용하면 배열이나 객체의 데이터를 반복하여 화면에 출력할 수 있고, `:key`를 사용하여 각각의 데이터를 구분할 수 있다는 것을 학습했습니다.
+
+`v-if`, `v-else-if`, `v-else`를 이용하여 조건에 따라 화면을 다르게 구성할 수 있으며, `v-show`를 이용하면 요소를 제거하지 않고 `display: none`을 통해 화면에서 숨길 수 있다는 차이도 확인했습니다.
+
+`v-html`과 `v-text`의 차이를 확인하면서 HTML을 실제로 렌더링하는 방법과 텍스트 그대로 출력하는 방법을 비교했습니다.
+
+또한 사용자 입력값을 `v-html`로 직접 출력할 경우 XSS 공격에 노출될 수 있기 때문에 외부 데이터를 사용할 때 주의해야 한다는 점을 학습했습니다.
+
+`v-cloak`, `v-pre`, `v-once`, `v-memo`를 학습하면서 Vue의 템플릿 처리 방식과 렌더링 최적화 방법도 확인했습니다.
+
+이번 실습을 통해 Vue의 디렉티브는 데이터와 화면을 연결하고, 조건에 따라 화면을 제어하며, 렌더링을 효율적으로 관리하기 위한 중요한 기능이라는 것을 이해했습니다.
+
+---
+
+## 15. 실행 방법
+
+`npm install` 명령어로 필요한 패키지를 설치한 후 `npm run dev` 명령어를 사용하여 개발 서버를 실행합니다.
+
+---
+
+## 16. 사용 기술
+
+- Vue.js
+- JavaScript
+- Vite
+- HTML
+- CSS
