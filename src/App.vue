@@ -1,47 +1,48 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import SampleOne from './components/practices/basic/SampleOne.vue'
+import SampleTwo from './components/practices/basic/SampleTwo.vue'
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="practice-container">
+    <h1>1. 학습환경구성</h1>
+    <hr />
+    <SampleOne />
+    <SampleTwo />
+    <h1>2. Vue Directive</h1>
+    <hr />
+    <VueHtml />
+    <VueHtmlXss />
+    <VueText />
+    <VueBind />
+    <VueBindClass />
+    <VueBindStyle />
+    <VueBindShorthand />
+    <VueIf />
+    <VueShow />
+    <VueFor />
+    <VuePre />
+    <VueCloak />
+    <VueOnce />
+    <VueMemo />
+    <h1>3. Vue Event Handling</h1>
+    <hr />
+    <EventBasic />
+    <EventObject />
+    <EventModifier />
+    <h1>4. Vue Form Handling</h1>
+    <hr />
+    <ModelBasic />
+    <ModelForm />
+    <ModelModifier />
+    <h1>5. Vue Style Handling</h1>
+    <hr />
+    <StyleScoped />
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
+<style>
+/* ⚠️ 외부 스타일 파일(예: 버튼 디자인 뭉치)을 이 방 안으로 쏙 가리켜 가져옵니다 */
+@import '@/assets/practice.css';
 </style>
