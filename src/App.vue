@@ -15,6 +15,9 @@ import VuePre from './components/practices/basic/VuePre.vue'
 import VueCloak from './components/practices/basic/VueCloak.vue'
 import VueOnce from './components/practices/basic/VueOnce.vue'
 import VueMemo from './components/practices/basic/VueMemo.vue'
+import EventHandler from './components/practices/basic/EventHandler.vue'
+import EventObject from './components/practices/basic/EventObject.vue'
+import EventModifier from './components/practices/basic/EventModifier.vue'
 
 </script>
 
@@ -42,7 +45,7 @@ import VueMemo from './components/practices/basic/VueMemo.vue'
     <VueMemo />
     <h1>3. Vue Event Handling</h1>
     <hr />
-    <EventBasic />
+    <EventHandler />
     <EventObject />
     <EventModifier />
     <h1>4. Vue Form Handling</h1>
