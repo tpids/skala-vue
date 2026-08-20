@@ -23,10 +23,16 @@ const filteredWeatherList = computed(() => {
     return weatherList.value
   }
 
+// 도시 이름에 검색어가 포함된 도시만 출력
   return weatherList.value.filter((item) =>
     item.name.includes(query)
   )
 })
+
+// 알림 대행 함수
+const showDetail = (cityName, status) => {
+  window.alert(`${cityName}의 현재 날씨는 [${status}] 상태입니다.`)
+}
 
 // 4. [2일차 추가] watch를 활용한 선택 도시 추적 센서
 watch(selectedCityInfo, (newInfo) => {
@@ -67,11 +73,6 @@ const setFavorite = (cityName) => {
   selectedCityInfo.value = `${cityName}이 즐겨찾기로 설정되었습니다.`
 }
 
-
-// 알림 대행 함수
-const showDetail = (cityName, status) => {
-  window.alert(`${cityName}의 현재 날씨는 [${status}] 상태입니다.`)
-}
 </script>
 
 
@@ -116,6 +117,12 @@ const showDetail = (cityName, status) => {
           ❄️ 선선함 (25도 미만)
         </span>
 
+        <button
+          class="btn-detail"
+          @click.stop="showDetail(item.name, item.status)"
+        >
+          상세보기
+        </button>
 
         <!-- 즐겨찾기 버튼 -->
         <button
@@ -124,22 +131,13 @@ const showDetail = (cityName, status) => {
         >
           ⭐ 즐겨찾기
         </button>
-
-
-        <button
-          class="btn-detail"
-          @click.stop="showDetail(item.name, item.status)"
-        >
-          상세보기
-        </button>
       </div>
 
-
       <p
-        v-if="filteredWeatherList.length === 0"
+        v-if="filteredWeatherList.length === 0" class="no-result"
         style="text-align: center; color: #e74c3c; padding: 10px 0"
       >
-        😭 검색 결과와 일치하는 도시가 없습니다.
+        😭 {{ searchQuery }} 검색 결과와 일치하는 도시가 없습니다.
       </p>
 
     </section>
