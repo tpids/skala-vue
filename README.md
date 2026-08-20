@@ -75,3 +75,71 @@ const filteredWeatherList = computed(() => {
 - 검색 결과가 없는 경우 안내 메시지 추가
 
 특히 기존의 단순한 도시명 출력 기능을 **실제 데이터 검색 및 카드 필터링 기능으로 확장**하여 사용자의 입력에 따라 화면에 표시되는 데이터가 동적으로 변경되도록 구현했습니다.
+
+---
+
+# Weather Composition - Hands on
+
+## 추가 기능 구현 - 즐겨찾기 도시 기능 ⭐
+
+기본 요구사항 외에 Composition API 활용 능력을 높이기 위해 **즐겨찾기 도시 기능**을 추가 구현하였다.
+
+사용자가 원하는 도시를 즐겨찾기로 설정하면 해당 도시의 날씨 정보를 별도로 확인할 수 있도록 구성하였다.
+
+---
+
+### 구현 내용
+
+#### 1. 반응형 상태 관리 (ref)
+
+`favoriteCity`를 새로운 반응형 상태 변수로 추가하여 사용자가 선택한 즐겨찾기 도시 정보를 관리하였다.
+
+```javascript
+const favoriteCity = ref('')
+```
+
+도시 카드의 즐겨찾기 버튼 클릭 시 선택한 도시명이 저장되며, 값이 변경되면 Vue의 반응형 시스템을 통해 화면이 자동으로 업데이트된다.
+
+#### 2. Computed를 활용한 즐겨찾기 데이터 계산
+
+저장된 즐겨찾기 도시명을 기반으로 `weatherList`에서 해당 도시의 날씨 정보를 찾아 반환하는 `favoriteWeather`를 구현하였다.
+
+```
+const favoriteWeather = computed(() => {
+  return weatherList.value.find(
+    (item) => item.name === favoriteCity.value
+  )
+})
+```
+Computed를 활용하여 기존 데이터를 직접 변경하지 않고, 필요한 데이터를 계산하여 관리하도록 구현하였다.
+
+#### 3. Watch를 활용한 상태 변화 감지
+
+즐겨찾기 도시가 변경되는 상황을 감지하기 위해 `watch`를 추가하였다.
+
+```
+watch(favoriteCity, (newCity) => {
+  console.log(
+    `⭐ 즐겨찾기 도시가 ${newCity}(으)로 변경되었습니다.`
+  )
+})
+```
+
+사용자가 새로운 도시를 즐겨찾기로 선택할 때마다 변경 내용을 콘솔에서 확인할 수 있도록 하였다.
+
+---
+
+#### 기능 동작 흐름
+```
+도시 카드의 즐겨찾기 버튼 클릭
+          ↓
+favoriteCity 상태 변경 (ref)
+          ↓
+favoriteWeather 재계산 (computed)
+          ↓
+즐겨찾기 영역 화면 업데이트
+          ↓
+watch를 통한 변경 로그 출력
+```
+
+이번 추가 기능을 통해 Vue Composition API의 핵심 기능인 반응형 상태 관리(ref), 계산 속성(computed), 상태 변화 감시(watch) 를 실제 기능 구현 과정에서 활용하였다.
