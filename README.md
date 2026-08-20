@@ -143,6 +143,7 @@ watchEffect는 내부에서 사용하는 반응형 데이터를 Vue가 자동으
 ---
 
 #### 기능 동작 흐름
+
 ```
 도시 카드의 즐겨찾기 버튼 클릭
           ↓
@@ -155,4 +156,40 @@ favoriteWeather 재계산 (computed)
 watch를 통한 변경 로그 출력
 ```
 
-이번 추가 기능을 통해 Vue Composition API의 핵심 기능인 반응형 상태 관리(ref), 계산 속성(computed), 상태 변화 감시(watch) 를 실제 기능 구현 과정에서 활용하였다.
+---
+
+# Weather Component - Hands on
+
+### 실습 내용
+
+기존 Weather 코드를 기능별 Component로 분리하여 코드의 역할을 명확하게 구성하였다.
+
+#### Component 구성
+
+- WeatherParent.vue
+  - 날씨 데이터 및 모든 반응형 상태 관리
+  - computed, watch, watchEffect 유지
+  - 자식 Component와 데이터 및 이벤트 통신
+
+- BaseDashboardCard.vue
+  - 검색 영역과 날씨 목록의 공통 디자인 담당
+  - <slot>을 사용하여 자식 Component 삽입
+
+- SearchBar.vue
+  - 도시 검색 UI 담당
+  - Props로 검색어 전달
+  - Emits로 검색어 변경 내용을 부모에게 전달
+
+- WeatherCard.vue
+  - 도시별 날씨 정보 표시
+  - Props로 날씨 데이터 전달
+  - 카드 선택, 상세보기, 즐겨찾기 이벤트를 Emits로 부모에게 전달
+
+- FavoriteWeather.vue
+  - 기존에 추가했던 즐겨찾기 기능을 별도 Component로 분리
+  - 즐겨찾기 도시의 기온과 날씨 상태 표시
+
+#### 적용한 Vue 기능
+Props  → 부모 → 자식 데이터 전달
+Emits  → 자식 → 부모 이벤트 전달
+Slot   → 공통 Component 내부에 콘텐츠 삽입
