@@ -124,8 +124,21 @@ watch(favoriteCity, (newCity) => {
   )
 })
 ```
-
 사용자가 새로운 도시를 즐겨찾기로 선택할 때마다 변경 내용을 콘솔에서 확인할 수 있도록 하였다.
+
+#### 4. watchEffect를 활용한 자동 의존성 추적
+
+```
+watchEffect(() => {
+  console.log(
+    `🤖 [watchEffect 자동 호출] 현재 검색어 '${searchQuery.value}'에 매칭되는 API 데이터를 필터링합니다.`
+  )
+})
+```
+
+watchEffect는 내부에서 사용하는 반응형 데이터를 Vue가 자동으로 추적하여 해당 데이터가 변경될 때마다 함수를 다시 실행한다.
+
+이번 실습에서는 searchQuery를 자동으로 추적하여 사용자가 검색어를 입력할 때마다 현재 검색어를 콘솔에 출력하도록 구현하였다.
 
 ---
 
