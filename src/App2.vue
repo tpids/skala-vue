@@ -16,8 +16,8 @@ import WatchersWatchEffect from './components/practices/composition/WatchersWatc
 // 3. Component Lifecycle
 import LifecycleChild from '@/components/practices/component/LifecycleChild.vue'
 // import LifecycleParent from '@/components/practices/component/LifecycleParent.vue'
-// // 4. Props & Emits
-// import PropsEmitsParent from '@/components/practices/component/PropsEmitsParent.vue'
+// 4. Props & Emits
+import PropsEmitsParent from '@/components/practices/component/PropsEmitsParent.vue'
 // // 5. Component Slot
 // import SlotDefaultParent from '@/components/practices/component/SlotDefaultParent.vue'
 // import SlotNamedParent from '@/components/practices/component/SlotNamedParent.vue'
