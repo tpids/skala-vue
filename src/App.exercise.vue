@@ -1,6 +1,6 @@
 <script setup>
 import WeatherMockup from './components/exercise/WeatherMockup.vue'
-// import WeatherComposition from './components/exercise/WeatherComposition.vue'
+import WeatherComposition from './components/exercise/WeatherComposition.vue'
 // import WeatherParent from './components/exercise/WeatherParent.vue'
 // import UnitToggler from './components/exercise/UnitToggler.vue'
 </script>
