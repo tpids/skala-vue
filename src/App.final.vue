@@ -70,6 +70,10 @@ const toggleTheme = () => {
             <v-icon class="nav-icon" icon="mdi-chart-donut" />
             <span>환경 리포트</span>
           </RouterLink>
+          <RouterLink to="/compare" class="nav-item">
+            <v-icon class="nav-icon" icon="mdi-compare-horizontal" />
+            <span>도시 비교</span>
+          </RouterLink>
           <RouterLink to="/practice" class="nav-item">
             <v-icon class="nav-icon" icon="mdi-flask-outline" />
             <span>실습 보기</span>

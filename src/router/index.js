@@ -34,6 +34,11 @@ const router = createRouter({
       component: () => import('../views/WeatherReportView.vue'),
     },
     {
+      path: '/compare',
+      name: 'WeatherCompare',
+      component: () => import('../views/WeatherCompareView.vue'),
+    },
+    {
       path: '/practice',
       name: 'PracticeApp',
       component: () => import('../App.exercise.vue'),

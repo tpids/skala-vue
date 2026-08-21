@@ -85,6 +85,15 @@ body { display: block !important; margin: 0; }
 .content-area .weather-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .content-area .weather-grid > div { min-width: 0; }
 .content-area .weather-grid .weather-card { min-height: 0; margin: 0; padding: 16px; background: var(--panel); border: 1px solid var(--line); box-shadow: 0 8px 22px rgba(27, 47, 42, 0.05); }
+.content-area .weather-card-header > div { min-width: 0; }
+.content-area .weather-card h4,
+.content-area .weather-card .status-block strong,
+.content-area .weather-card .status-block span { overflow-wrap: anywhere; }
+.content-area .weather-card .weather-card-main { min-width: 0; gap: 10px; }
+.content-area .weather-card .status-block { min-width: 0; }
+.content-area .weather-card .air-quality-panel { min-width: 0; }
+.content-area .weather-card .air-quality-panel strong,
+.content-area .weather-card .air-quality-panel small { min-width: 0; overflow-wrap: anywhere; }
 
 .dashboard-hero { position: relative; height: clamp(230px, 30vw, 390px); margin-bottom: 24px; overflow: hidden; background: var(--deep); border-radius: 18px; box-shadow: 0 22px 45px rgba(24, 51, 58, 0.18); }
 .dashboard-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, rgba(12, 38, 43, 0.18), transparent 55%, rgba(213, 243, 107, 0.08)); pointer-events: none; }
@@ -161,6 +170,7 @@ body { display: block !important; margin: 0; }
 	.nav-arrow { display: none; }
 	.content-area { padding-top: 27px; }
 	.dashboard-hero { height: 280px; }
+	.content-area .weather-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 700px) {
