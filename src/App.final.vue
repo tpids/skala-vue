@@ -75,22 +75,11 @@ const toggleTheme = () => {
       <main class="content-area">
         <div class="content-kicker">FIELD REPORT / 2026</div>
         <section v-if="isDashboard" class="dashboard-hero">
-          <div>
-            <span class="hero-eyebrow">TODAY'S ATMOSPHERE</span>
-            <h1>도시의 오늘을<br /><em>한눈에 읽다.</em></h1>
-            <p>날씨와 공기 상태를 한 화면에서 확인하세요.<br />지금 이 순간, 다섯 도시의 하늘을 기록합니다.</p>
-          </div>
-          <div class="hero-orbit" aria-hidden="true">
-            <span class="orbit-ring ring-one"></span>
-            <span class="orbit-ring ring-two"></span>
-            <span class="orbit-sun">☼</span>
-            <span class="orbit-cloud">☁</span>
-          </div>
-          <div class="hero-metrics">
-            <div><strong>05</strong><span>TRACKED CITIES</span></div>
-            <div><strong>LIVE</strong><span>WEATHER FEED</span></div>
-            <div><strong>PM</strong><span>AIR QUALITY</span></div>
-          </div>
+          <img
+            class="hero-image"
+            src="/sky.svg"
+            alt="푸른 하늘과 구름"
+          />
         </section>
         <RouterView />
       </main>
