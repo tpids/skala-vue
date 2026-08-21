@@ -7,11 +7,11 @@ import FavoriteWeather from './FavoriteWeather.vue'
 
 // 날씨 데이터
 const weatherList = ref([
-  { id: 'city_01', name: '서울', temp: 28, status: '맑음' },
-  { id: 'city_02', name: '수원', temp: 24, status: '비' },
-  { id: 'city_03', name: '부산', temp: 26, status: '구름' },
-  { id: 'city_04', name: '광주', temp: 30, status: '맑음' },
-  { id: 'city_05', name: '제주', temp: 22, status: '비' },
+  { id: 'city_01', name: '서울', temp: 28, status: '맑음', humidity: 55, wind: 2.5 },
+  { id: 'city_02', name: '수원', temp: 24, status: '비', humidity: 85, wind: 4.1 },
+  { id: 'city_03', name: '부산', temp: 26, status: '구름', humidity: 65, wind: 5.0 },
+  { id: 'city_04', name: '광주', temp: 30, status: '맑음', humidity: 50, wind: 3.2 },
+  { id: 'city_05', name: '제주', temp: 22, status: '비', humidity: 80, wind: 6.3 },
 ])
 
 // 검색어 및 선택된 도시

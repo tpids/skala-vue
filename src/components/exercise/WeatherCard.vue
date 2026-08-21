@@ -21,6 +21,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  showMetrics: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits([
@@ -80,6 +84,15 @@ const setFavorite = () => {
       <span><v-icon icon="mdi-weather-hazy" size="16" /> PM2.5</span>
       <strong>{{ weather.airQualityGrade || '측정 정보 없음' }}</strong>
       <small v-if="weather.pm25 !== null && weather.pm25 !== undefined">{{ weather.pm25 }} μg/m³</small>
+    </div>
+
+    <div v-if="showMetrics" class="weather-facts">
+      <span v-if="weather.humidity !== undefined">
+        <v-icon icon="mdi-water-percent" size="15" /> 습도 {{ weather.humidity }}%
+      </span>
+      <span v-if="weather.wind !== undefined">
+        <v-icon icon="mdi-weather-windy" size="15" /> 풍속 {{ weather.wind }}m/s
+      </span>
     </div>
 
     <footer class="weather-card-footer">
@@ -219,6 +232,20 @@ h4 {
 .air-quality-panel span { display: inline-flex; align-items: center; gap: 4px; }
 .air-quality-panel strong { margin-left: auto; color: var(--text-strong); }
 .air-quality-panel small { color: var(--muted); }
+
+.weather-facts {
+  display: flex;
+  gap: 10px;
+  padding-top: 10px;
+  color: var(--text-body);
+  font-size: 10px;
+}
+
+.weather-facts span {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
 
 .weather-card-footer {
   margin-top: auto;

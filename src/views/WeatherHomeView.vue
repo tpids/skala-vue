@@ -220,6 +220,7 @@ const setFavorite = (city) => {
           <WeatherCard
             :weather="item"
             :is-favorite="favoriteCities.includes(item.name)"
+            show-metrics
             @select-card="selectCard"
             @click-detail="showDetail"
             @set-favorite="setFavorite"
