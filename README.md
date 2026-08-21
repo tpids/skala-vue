@@ -293,3 +293,112 @@ const favoriteCities = ref(
 이미 즐겨찾기된 도시를 다시 선택하면 해당 도시를 배열에서 제거하도록 구현하였다.
 
 ---
+
+# Weather Store - Hands on
+
+## 추가 기능 구현 - 날씨 설정 Store 확장 기능 🌡️🌙
+
+기본으로 제공된 `configStore`를 확장하여 날씨 단위 변경 기능과 다크모드 기능을 추가 구현하였다.
+
+Pinia Store를 활용하여 애플리케이션 전역에서 사용하는 설정 데이터를 중앙 관리하도록 구성하였다.
+
+---
+
+## 온도 단위 변경 기능 추가 (섭씨 / 화씨)
+
+기본 `configStore`의 단위 관리 기능을 활용하여 사용자가 원하는 온도 단위를 선택할 수 있도록 구현하였다.
+
+### 구현 내용
+
+#### 1) State - 현재 온도 단위 관리
+
+```javascript
+const unit = ref('celsius')
+```
+현재 선택된 온도 단위를 저장하며 기본값은 섭씨(celsius)로 설정하였다.
+
+지원 단위:
+- celsius : 섭씨(℃)
+- fahrenheit : 화씨(℉)
+
+#### 2) Getter - 단위 표시 기호 반환
+
+```
+const unitSymbol = computed(() => {
+  return unit.value === 'celsius'
+    ? '℃'
+    : '℉'
+})
+```
+현재 설정된 단위 상태에 따라 화면에 표시할 기호를 자동으로 반환하도록 구현하였다.
+
+#### 3) Action - 단위 전환 기능
+
+```
+function toggleUnit() {
+  unit.value =
+    unit.value === 'celsius'
+      ? 'fahrenheit'
+      : 'celsius'
+}
+```
+버튼 클릭 시 섭씨와 화씨가 토글되도록 구현하였다.
+
+---
+
+## 온도 변환 로직 Store 관리
+기존에는 각 Component에서 온도 변환 계산식을 작성해야 했지만,
+`configStore` 내부에서 변환 로직을 관리하도록 개선하였다.
+
+추가 Action
+```
+function convertTemperature(celsius) {
+  if (unit.value === 'celsius') {
+    return celsius
+  }
+
+  return (celsius * 9 / 5 + 32).toFixed(1)
+}
+```
+Component에서는 변환 계산식을 직접 작성하지 않고 Store의 함수를 호출하여 사용한다.
+```
+{{ configStore.convertTemperature(weather.temp) }}
+{{ configStore.unitSymbol }}
+```
+
+---
+
+## 다크모드 기능 추가 🌙
+
+사용자의 화면 환경 설정을 개선하기 위해 다크모드 기능을 추가하였다.
+`configStore`에서 다크모드 상태를 관리하고,
+Vue의 Class Binding과 CSS를 활용하여 화면 스타일을 동적으로 변경하도록 구현하였다.
+
+### 구현 내용
+
+#### 1) State - 다크모드 상태 관리
+```
+const isDarkMode = ref(false)
+```
+
+#### 2) Getter - 테마 아이콘 표시
+```
+const themeSymbol = computed(() => {
+  return isDarkMode.value
+    ? '🌙'
+    : '☀️'
+})
+```
+
+#### 3) Action - 다크모드 전환
+```
+function toggleDarkMode() {
+  isDarkMode.value = !isDarkMode.value
+}
+```
+---
+
+#### CSS 기반 다크모드 적용
+
+Pinia에서는 다크모드 상태만 관리하고,
+실제 화면 색상 변경은 CSS Class를 통해 처리하였다.
