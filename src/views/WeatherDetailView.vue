@@ -3,38 +3,39 @@ import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useConfigStore } from '../stores/configStore'
 import { getWeather, normalizeWeatherStatus } from '../api/weatherApi.js'
+import { getAirQuality, getLatestAirQuality, getAirQualityGrade } from '../api/airQualityApi.js'
+import { getCityById } from '../api/cityData.js'
 
 const route = useRoute()
 const router = useRouter()
 const configStore = useConfigStore()
 
-const cities = {
-  city_01: { name: '서울', city: 'Seoul' },
-  city_02: { name: '수원', city: 'Suwon' },
-  city_03: { name: '부산', city: 'Busan' },
-  city_04: { name: '광주', city: 'Gwangju' },
-  city_05: { name: '제주', city: 'Jeju' },
-}
-
 const cityData = ref(null)
 const fetchError = ref(false)
 
 onMounted(async () => {
-  const city = cities[route.params.cityId]
+  const city = getCityById(route.params.cityId)
 
   if (!city) {
     return
   }
 
   try {
-    const response = await getWeather(city.city)
-    const data = response.data
+    const [weatherResponse, airResponse] = await Promise.all([
+      getWeather(city.city),
+      getAirQuality(city.lat, city.lon),
+    ])
+    const data = weatherResponse.data
+    const airQuality = getLatestAirQuality(airResponse.data)
     cityData.value = {
       name: city.name,
       temp: data.main.temp,
       status: normalizeWeatherStatus(data.weather[0].description),
       humidity: `${data.main.humidity}%`,
       wind: `${data.wind.speed}m/s`,
+      pm10: airQuality.pm10,
+      pm25: airQuality.pm25,
+      airQualityGrade: getAirQualityGrade(airQuality.pm25),
     }
   } catch (error) {
     fetchError.value = true
@@ -55,6 +56,9 @@ onMounted(async () => {
       <p>기상 현황: {{ cityData.status }}</p>
       <p>대기 습도: {{ cityData.humidity }}</p>
       <p>현재 풍속: {{ cityData.wind }}</p>
+      <p>미세먼지(PM10): {{ cityData.pm10 ?? '측정 정보 없음' }}{{ cityData.pm10 !== null ? ' μg/m³' : '' }}</p>
+      <p>초미세먼지(PM2.5): {{ cityData.pm25 ?? '측정 정보 없음' }}{{ cityData.pm25 !== null ? ' μg/m³' : '' }}</p>
+      <p>미세먼지 상태: {{ cityData.airQualityGrade }}</p>
     </div>
     <div v-else-if="fetchError">
       <p>날씨 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>

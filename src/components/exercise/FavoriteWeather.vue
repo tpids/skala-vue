@@ -30,6 +30,14 @@ defineProps({
         날씨:
         <strong>{{ weather.status }}</strong>
       </p>
+
+      <p>
+        미세먼지:
+        <strong>{{ weather.airQualityGrade || '측정 정보 없음' }}</strong>
+        <span v-if="weather.pm25 !== null && weather.pm25 !== undefined">
+          ({{ weather.pm25 }} μg/m³)
+        </span>
+      </p>
     </div>
 
     <p v-else>

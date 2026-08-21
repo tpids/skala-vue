@@ -2,6 +2,8 @@
 import { ref, computed, watch, watchEffect, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { getWeather, normalizeWeatherStatus } from '../api/weatherApi.js'
+import { getAirQuality, getLatestAirQuality, getAirQualityGrade } from '../api/airQualityApi.js'
+import { CITIES } from '../api/cityData.js'
 
 import BaseDashboardCard from '../components/exercise/BaseDashboardCard.vue'
 import SearchBar from '../components/exercise/SearchBar.vue'
@@ -14,42 +16,34 @@ const route = useRoute()
 // 날씨 데이터 api 호출
 const weatherList = ref([])
 
-const cities = [
-  { id:'city_01', name:'서울', city:'Seoul' },
-  { id:'city_02', name:'수원', city:'Suwon' },
-  { id:'city_03', name:'부산', city:'Busan' },
-  { id:'city_04', name:'광주', city:'Gwangju' },
-  { id:'city_05', name:'제주', city:'Jeju' },
-]
-
-
 const fetchWeather = async () => {
-
-  const result = []
-
-  for (const city of cities) {
-
+  const result = await Promise.all(CITIES.map(async (city) => {
     try {
+      const [weatherResponse, airResponse] = await Promise.all([
+        getWeather(city.city),
+        getAirQuality(city.lat, city.lon),
+      ])
+      const airQuality = getLatestAirQuality(airResponse.data)
 
-      const response = await getWeather(city.city)
-
-      result.push({
+      return {
         id: city.id,
         name: city.name,
-        temp: Math.round(response.data.main.temp),
-        status: normalizeWeatherStatus(response.data.weather[0].description),
-        humidity: response.data.main.humidity,
-        wind: response.data.wind.speed,
-        icon: response.data.weather[0].icon
-      })
-
+        temp: Math.round(weatherResponse.data.main.temp),
+        status: normalizeWeatherStatus(weatherResponse.data.weather[0].description),
+        humidity: weatherResponse.data.main.humidity,
+        wind: weatherResponse.data.wind.speed,
+        icon: weatherResponse.data.weather[0].icon,
+        pm10: airQuality.pm10,
+        pm25: airQuality.pm25,
+        airQualityGrade: getAirQualityGrade(airQuality.pm25),
+      }
     } catch(error) {
       console.log(`${city.name} API 오류`, error)
+      return null
     }
+  }))
 
-  }
-
-  weatherList.value = result
+  weatherList.value = result.filter(Boolean)
 }
 
 // 검색어 및 선택된 도시

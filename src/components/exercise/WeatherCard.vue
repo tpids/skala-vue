@@ -61,6 +61,13 @@ const setFavorite = () => {
       ❄️ 선선함 (25도 미만)
     </span>
 
+    <p class="air-quality">
+      미세먼지: {{ weather.airQualityGrade || '측정 정보 없음' }}
+      <span v-if="weather.pm25 !== null && weather.pm25 !== undefined">
+        ({{ weather.pm25 }} μg/m³)
+      </span>
+    </p>
+
     <button
       class="btn-detail"
       @click.stop="clickDetail"

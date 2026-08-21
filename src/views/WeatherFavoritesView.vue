@@ -3,6 +3,8 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useConfigStore } from '../stores/configStore'
 import { getWeather, normalizeWeatherStatus } from '../api/weatherApi.js'
+import { getAirQuality, getLatestAirQuality, getAirQualityGrade } from '../api/airQualityApi.js'
+import { getCityByName } from '../api/cityData.js'
 
 const router = useRouter()
 const configStore = useConfigStore()
@@ -14,35 +16,34 @@ const favoriteList = ref([])
 const isLoading = ref(false)
 const fetchError = ref(false)
 
-const cities = {
-  서울: { id: 'city_01', city: 'Seoul' },
-  수원: { id: 'city_02', city: 'Suwon' },
-  부산: { id: 'city_03', city: 'Busan' },
-  광주: { id: 'city_04', city: 'Gwangju' },
-  제주: { id: 'city_05', city: 'Jeju' },
-}
-
 const fetchFavoriteWeather = async () => {
   isLoading.value = true
   fetchError.value = false
 
   const results = await Promise.all(
     favoriteCities.value.map(async (name) => {
-      const city = cities[name]
+      const city = getCityByName(name)
 
       if (!city) {
         return null
       }
 
       try {
-        const response = await getWeather(city.city)
-        const data = response.data
+        const [weatherResponse, airResponse] = await Promise.all([
+          getWeather(city.city),
+          getAirQuality(city.lat, city.lon),
+        ])
+        const data = weatherResponse.data
+        const airQuality = getLatestAirQuality(airResponse.data)
 
         return {
           id: city.id,
           name,
           temp: data.main.temp,
           status: normalizeWeatherStatus(data.weather[0].description),
+          pm10: airQuality.pm10,
+          pm25: airQuality.pm25,
+          airQualityGrade: getAirQualityGrade(airQuality.pm25),
         }
       } catch (error) {
         fetchError.value = true
@@ -72,7 +73,10 @@ onMounted(fetchFavoriteWeather)
     <ul v-else-if="favoriteList.length > 0" class="favorite-list">
       <li v-for="item in favoriteList" :key="item.id" class="favorite-item" @click="goDetail(item.id)">
         <span>{{ item.name }}</span>
-        <span>{{configStore.convertTemperature(item.temp) }}{{ configStore.unitSymbol }} · {{ item.status }}</span>
+        <span>
+          {{ configStore.convertTemperature(item.temp) }}{{ configStore.unitSymbol }} · {{ item.status }} ·
+          {{ item.airQualityGrade }}
+        </span>
       </li>
     </ul>
     <p v-else>즐겨찾기에 등록된 지역이 없습니다.</p>
