@@ -48,6 +48,15 @@ const fetchWeather = async () => {
 // 검색어 및 선택 상태
 const searchQuery = ref('')
 const selectedCityInfo = ref('카드를 클릭하거나 검색해 보세요.')
+const showToast = ref(false)
+
+const notify = (message) => {
+  selectedCityInfo.value = message
+  showToast.value = false
+  requestAnimationFrame(() => {
+    showToast.value = true
+  })
+}
 
 // 검색 결과
 const filteredWeatherList = computed(() => {
@@ -94,7 +103,7 @@ watchEffect(() => {
 
 // 선택된 도시 상태 표시
 const selectCard = (city) => {
-  selectedCityInfo.value = `${city.name}이 선택되었습니다.`
+  notify(`${city.name}이 선택되었습니다.`)
 }
 
 // 즐겨찾기 감시
@@ -122,12 +131,12 @@ const setFavorite = (city) => {
     // 즐겨찾기 해제
     favoriteCities.value = favoriteCities.value.filter(name => name !== city.name)
     localStorage.setItem('favoriteCities', JSON.stringify(favoriteCities.value))
-    selectedCityInfo.value = `${city.name}이 즐겨찾기에서 해제되었습니다.`
+    notify(`${city.name}이 즐겨찾기에서 해제되었습니다.`)
   } else {
     // 즐겨찾기 설정
     favoriteCities.value.push(city.name)
     localStorage.setItem('favoriteCities', JSON.stringify(favoriteCities.value))
-    selectedCityInfo.value = `${city.name}이 즐겨찾기로 설정되었습니다.`
+    notify(`${city.name}이 즐겨찾기로 설정되었습니다.`)
   }
 }
 
@@ -172,22 +181,16 @@ const setFavorite = (city) => {
       </p>
     </BaseDashboardCard>
 
-    <div class="status-bar">
+    <v-snackbar
+      v-model="showToast"
+      location="bottom right"
+      :timeout="2400"
+      color="primary"
+      variant="flat"
+    >
+      <v-icon icon="mdi-check-circle-outline" class="mr-2" />
       {{ selectedCityInfo }}
-    </div>
+    </v-snackbar>
 
   </div>
 </template>
-
-<style scoped>
-.status-bar {
-  padding: 12px 16px;
-  color: var(--text-body);
-  background: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  text-align: center;
-}
-</style>
