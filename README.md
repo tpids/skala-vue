@@ -193,3 +193,103 @@ watch를 통한 변경 로그 출력
  - Props  → 부모 → 자식 데이터 전달
  - Emits  → 자식 → 부모 이벤트 전달
  - Slot   → 공통 Component 내부에 콘텐츠 삽입
+
+--- 
+
+ # Weather Router - Hands on
+
+기존 Weather Component 구조에 Vue Router를 적용하여 화면을 View 단위로 분리하고,
+페이지 이동 및 동적 라우팅 기능을 구현하였다.
+
+---
+
+## Vue Router 설정
+
+기존 Weather 화면에 Vue Router를 적용하여 각각의 기능을 별도의 View로 분리하였다.
+
+라우터에서 각 경로에 해당하는 View를 연결하고, View가 실제로 접근될 때 로딩되도록 **Lazy Loading**을 적용하였다.
+
+```javascript
+const routes = [
+  {
+    path: '/',
+    name: 'WeatherHome',
+    component: () => import('../views/WeatherHomeView.vue'),
+  },
+  {
+    path: '/weather/:cityId',
+    name: 'WeatherDetail',
+    component: () => import('../views/WeatherDetailView.vue'),
+  },
+  {
+    path: '/about',
+    name: 'WeatherAbout',
+    component: () => import('../views/WeatherAboutView.vue'),
+  },
+  {
+    path: '/favorites',
+    name: 'WeatherFavorites',
+    component: () => import('../views/WeatherFavoritesView.vue'),
+  },
+]
+```
+
+View별로 경로를 분리하여 하나의 화면에서 여러 기능을 관리하던 기존 구조를 Router 기반의 페이지 구조로 확장하였다.
+
+---
+
+#### 날씨 상세 페이지 Programmatic Navigation
+
+기존 `WeatherCard`의 상세보기 기능에서는 `window.alert()`를 사용했지만,
+Vue Router를 활용하여 실제 상세 페이지로 이동하도록 변경하였다.
+
+```
+const showDetail = (city) => {
+  router.push(`/weather/${city.id}`)
+}
+```
+
+이를 통해 단순 알림창을 표시하는 방식에서
+도시 ID를 이용한 `Dynamic Route` 기반 상세 페이지 이동으로 기능을 확장하였다.
+
+#### Favorites View 추가
+
+추가 View 요구사항을 충족하기 위해 `WeatherFavoritesView.vue`를 작성하였다.
+/favorites 경로에서 사용자가 등록한 즐겨찾기 지역을 확인할 수 있도록 구성하였다.
+즐겨찾기 데이터는 `localStorage`를 활용하여 저장하고,
+여러 도시를 동시에 즐겨찾기에 등록할 수 있도록 배열 형태로 관리하였다.
+
+```
+const favoriteCities = ref(
+  JSON.parse(localStorage.getItem('favoriteCities') || '["서울"]')
+)
+```
+즐겨찾기 설정 및 해제 시 `localStorage`의 데이터를 함께 업데이트하도록 구현하였다. 서울을 디폴트 값으로 설정하였다.
+
+#### 즐겨찾기 상태 시각화
+기존에는 즐겨찾기 설정 여부를 상태 메시지로만 확인할 수 있었지만,
+현재 즐겨찾기 상태를 별 모양으로 직관적으로 확인할 수 있도록 개선하였다.
+
+```
+{{ isFavorite ? '⭐' : '☆' }}
+```
+- ☆ : 즐겨찾기하지 않은 상태
+- ⭐ : 즐겨찾기 상태
+또한 즐겨찾기 버튼에 `isFavorite Props`를 전달하여
+부모 Component의 즐겨찾기 상태가 변경되면 카드의 별 모양도 자동으로 변경되도록 구성하였다.
+
+#### 여러 도시 즐겨찾기 지원
+
+기존에는 하나의 `favoriteCity`만 저장하여 하나의 도시만 즐겨찾기할 수 있었지만,
+이를 `favoriteCities` 배열로 변경하여 여러 도시를 동시에 관리할 수 있도록 개선하였다.
+
+```
+const favoriteCities = ref(
+  JSON.parse(localStorage.getItem('favoriteCities') || '[]')
+)
+```
+
+즐겨찾기 설정 시 배열에 도시를 추가하고,
+이미 즐겨찾기된 도시를 다시 선택하면 해당 도시를 배열에서 제거하도록 구현하였다.
+
+---
