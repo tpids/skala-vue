@@ -1,4 +1,8 @@
 <script setup>
+import { useConfigStore } from '../../stores/configStore'
+
+const configStore = useConfigStore()
+
 defineProps({
   weather: {
     type: Object,
@@ -19,7 +23,7 @@ defineProps({
 
       <p>
         현재 기온:
-        <strong>{{ weather.temp }}°C</strong>
+        <strong>{{configStore.unit === 'celsius' ? weather.temp : (weather.temp * 9 / 5 + 32).toFixed(1)}}{{ configStore.unitSymbol }}</strong>
       </p>
 
       <p>

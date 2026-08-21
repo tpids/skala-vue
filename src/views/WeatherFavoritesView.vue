@@ -1,8 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useConfigStore } from '../stores/configStore'
 
 const router = useRouter()
+const configStore = useConfigStore()
 
 const weatherList = ref([
   { id: 'city_01', name: '서울', temp: 28, status: '맑음' },
@@ -37,7 +39,7 @@ const goDetail = (id) => {
     <ul v-if="favoriteList.length > 0" class="favorite-list">
       <li v-for="item in favoriteList" :key="item.id" class="favorite-item" @click="goDetail(item.id)">
         <span>{{ item.name }}</span>
-        <span>{{ item.temp }}°C · {{ item.status }}</span>
+        <span>{{configStore.unit === 'celsius' ? item.temp : (item.temp * 9 / 5 + 32).toFixed(1)}}{{ configStore.unitSymbol }} · {{ item.status }}</span>
       </li>
     </ul>
     <p v-else>즐겨찾기에 등록된 지역이 없습니다.</p>
