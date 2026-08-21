@@ -10,6 +10,7 @@ const configStore = useConfigStore()
 </script>
 
 <template>
+  <div class="exercise-app" :class="{ 'exercise-dark-mode': configStore.isDarkMode }">
   <div class="app-container">
     <h1>⛅ 과제 1: 날씨 (Mockup)</h1>
     <hr />
@@ -46,7 +47,7 @@ const configStore = useConfigStore()
       </main>
     </div>
   </div>
-  <div :class="{ 'dark-mode': configStore.isDarkMode }">
+  <div class="app-container">
     <h1>⛅ 과제 5: 스토어적용</h1>
     <hr />
     <div class="dashboard-wrapper">
@@ -62,6 +63,7 @@ const configStore = useConfigStore()
         <RouterView />
       </main>
     </div>
+  </div>
   </div>
 </template>
 

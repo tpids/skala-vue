@@ -101,16 +101,18 @@ const setFavorite = (city) => {
     <BaseDashboardCard>
       <h3>🏙️ 지역별 날씨 현황</h3>
 
-      <div
-        v-for="item in filteredWeatherList"
-        :key="item.id"
-      >
-        <WeatherCard
-          :weather="item"
-          @select-card="selectCard"
-          @click-detail="showDetail"
-          @set-favorite="setFavorite"
-        />
+      <div class="weather-grid">
+        <div
+          v-for="item in filteredWeatherList"
+          :key="item.id"
+        >
+          <WeatherCard
+            :weather="item"
+            @select-card="selectCard"
+            @click-detail="showDetail"
+            @set-favorite="setFavorite"
+          />
+        </div>
       </div>
 
       <p

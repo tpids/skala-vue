@@ -34,6 +34,11 @@ const router = createRouter({
       component: () => import('../views/WeatherReportView.vue'),
     },
     {
+      path: '/practice',
+      name: 'PracticeApp',
+      component: () => import('../App.exercise.vue'),
+    },
+    {
       // catch-all: 정의되지 않은 모든 경로를 404 화면으로 연결
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
