@@ -4,6 +4,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  isFavorite: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits([
@@ -61,9 +65,11 @@ const setFavorite = () => {
 
     <button
       class="btn-favorite"
+      :class="{ active: isFavorite }"
+      :title="isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'"
       @click.stop="setFavorite"
     >
-      ⭐ 즐겨찾기
+      {{ isFavorite ? '⭐' : '☆' }}
     </button>
   </div>
 </template>
@@ -83,5 +89,16 @@ const setFavorite = () => {
 .btn-detail,
 .btn-favorite {
   margin-right: 5px;
+}
+
+.btn-favorite {
+  font-size: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.btn-favorite.active {
+  transform: scale(1.1);
 }
 </style>
