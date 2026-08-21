@@ -467,7 +467,7 @@ const vuetify = createVuetify({
 
 ---
 
-## 최종 UI 구성
+# 최종 UI 구성 - Hands on
 
 `App.final.vue`를 제출용 진입 화면으로 구성하고, 기존 실습 화면과 분리했다.
 
