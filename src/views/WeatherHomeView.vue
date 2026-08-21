@@ -49,6 +49,17 @@ const fetchWeather = async () => {
 const searchQuery = ref('')
 const selectedCityInfo = ref('카드를 클릭하거나 검색해 보세요.')
 const showToast = ref(false)
+const showMap = ref(false)
+
+const mapCity = computed(() => {
+  return CITIES.find((city) => city.name.includes(searchQuery.value.trim())) || CITIES[0]
+})
+
+const mapUrl = computed(() => {
+  const { lat, lon } = mapCity.value
+  const delta = 0.12
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${lon - delta}%2C${lat - delta}%2C${lon + delta}%2C${lat + delta}&layer=mapnik&marker=${lat}%2C${lon}`
+})
 
 const notify = (message) => {
   selectedCityInfo.value = message
@@ -56,6 +67,10 @@ const notify = (message) => {
   requestAnimationFrame(() => {
     showToast.value = true
   })
+}
+
+const openMap = () => {
+  showMap.value = !showMap.value
 }
 
 // 검색 결과
@@ -81,6 +96,7 @@ onMounted(() => {
   if(route.query.search){
     searchQuery.value = route.query.search
   }
+  showMap.value = route.query.map === '1'
   fetchWeather()
 })
 
@@ -90,8 +106,13 @@ watch(searchQuery, (newQuery) => {
     path: route.path,
     query: {
       search: newQuery || undefined,
+      map: showMap.value ? '1' : undefined,
     },
   })
+})
+
+watch(() => route.query.map, (mapQuery) => {
+  showMap.value = mapQuery === '1'
 })
 
 // 검색어 감시
@@ -150,8 +171,42 @@ const setFavorite = (city) => {
       <SearchBar
         :search-query="searchQuery"
         @update-query="updateQuery"
+        @toggle-map="openMap"
       />
     </BaseDashboardCard>
+
+    <section v-if="showMap" class="map-panel">
+      <header class="map-panel-header">
+        <div>
+          <span class="map-kicker">CITY MAP / OPENSTREETMAP</span>
+          <h3>{{ mapCity.name }} 위치 보기</h3>
+        </div>
+        <v-btn
+          icon
+          size="small"
+          variant="text"
+          aria-label="지도 닫기"
+          title="지도 닫기"
+          @click="showMap = false"
+        >
+          <v-icon icon="mdi-close" />
+        </v-btn>
+      </header>
+      <iframe
+        class="city-map"
+        :src="mapUrl"
+        :title="`${mapCity.name} 지도`"
+        loading="lazy"
+      ></iframe>
+      <a
+        class="map-link"
+        :href="`https://www.openstreetmap.org/?mlat=${mapCity.lat}&mlon=${mapCity.lon}#map=12/${mapCity.lat}/${mapCity.lon}`"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        OpenStreetMap에서 크게 보기 ↗
+      </a>
+    </section>
 
     <!-- 날씨 목록 -->
     <BaseDashboardCard>
@@ -194,3 +249,57 @@ const setFavorite = (city) => {
 
   </div>
 </template>
+
+<style scoped>
+.map-panel {
+  margin: -2px 0 16px;
+  padding: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.map-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.map-kicker {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 1.4px;
+  font-weight: 800;
+}
+
+.map-panel h3 {
+  margin: 4px 0 0;
+  color: var(--text-strong);
+  font-size: 16px;
+}
+
+.city-map {
+  width: 100%;
+  height: 280px;
+  display: block;
+  border: 0;
+  border-radius: 10px;
+}
+
+.map-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--text-body);
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.map-link:hover { color: var(--navy); }
+
+@media (max-width: 620px) {
+  .city-map { height: 230px; }
+}
+</style>
