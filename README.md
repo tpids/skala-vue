@@ -434,3 +434,192 @@ API Key를 코드에 직접 작성하지 않고 `.env` 파일을 활용하여 �
 대기질 정보를 제공하는 기능을 추가하였다.
 Open-Meteo Air Quality API를 추가 연동하여
 미세먼지와 초미세먼지 정보를 제공하도록 확장하였다.
+
+---
+
+# Weather UI Library - Hands on
+
+## Vuetify 및 Material Design Icons 적용
+
+최종 제출 화면의 일관된 UI를 구성하기 위해 Vue 전용 UI 라이브러리인 **Vuetify**를 적용하였다.
+버튼, 아이콘, Snackbar, Progress Circular 등의 UI를 Vuetify 컴포넌트로 구성하고,
+Material Design Icons를 함께 사용하였다.
+
+### 적용한 Vuetify 컴포넌트
+
+- `v-btn`: 테마 전환, 단위 전환, 상세보기, 새로고침, 지도 이동 버튼
+- `v-icon`: 메뉴, 날씨, 미세먼지, 지도, 비교 기능 아이콘
+- `v-snackbar`: 카드 선택 및 즐겨찾기 변경 알림
+- `v-progress-circular`: API 로딩 상태 표시
+
+`main.js`에서 Vuetify와 MDI를 등록하여 최종 앱에서 공통으로 사용할 수 있도록 구성하였다.
+
+```javascript
+const vuetify = createVuetify({
+  components: {
+    VBtn,
+    VIcon,
+    VProgressCircular,
+    VSnackbar,
+  },
+})
+```
+
+---
+
+## 최종 UI 구성
+
+`App.final.vue`를 제출용 진입 화면으로 구성하고, 기존 실습 화면과 분리하였다.
+
+- Weatherly 브랜드 헤더 및 반응형 사이드바
+- 대시보드, 관심 지역, 도시 지도, 환경 리포트, 도시 비교, 실습 보기, 서비스 안내 메뉴
+- 라이트모드와 다크모드 테마
+- 헤더의 `°C / °F` 단위 전환 버튼
+- 카드 hover 및 반응형 카드 grid
+- 로컬 `public/sky.svg`를 활용한 날씨 이미지 히어로
+- 카드 선택 및 즐겨찾기 변경 시 Snackbar 알림
+
+실습 과제는 `/practice`에서 확인할 수 있으며, 최종 앱과 스타일이 충돌하지 않도록
+실습 스타일은 `.exercise-app` 범위 안에서만 적용되도록 구성하였다.
+
+---
+
+## 추가 도시 및 날씨 정보
+
+공통 도시 데이터 파일에 인천을 추가하여 총 여섯 도시를 지원한다.
+
+- 서울
+- 수원
+- 부산
+- 광주
+- 제주
+- 인천
+
+각 도시의 날씨 조회에는 도시명과 위도·경도 정보를 사용한다.
+OpenWeatherMap의 날씨 응답에서 다음 데이터를 표시한다.
+
+- 기온
+- 날씨 상태
+- 습도
+- 풍속
+- 날씨 아이콘
+
+날씨 상태의 원본 표현인 `튼구름`, `실 비`, `온흐림` 등은
+`normalizeWeatherStatus()`를 통해 `구름`, `비`, `흐림`처럼 간결한 화면용 표현으로 변환하였다.
+
+---
+
+## 도시 지도 기능 🗺️
+
+사이드바의 `도시 지도` 메뉴를 별도의 `/map` View로 구성하였다.
+
+- 도시 목록에서 도시 선택
+- 선택한 도시의 위도·경도 기반 지도 표시
+- OpenStreetMap 임베드 사용
+- 새 창에서 크게 보기 제공
+- 모바일 반응형 레이아웃 지원
+
+검색창의 지도 아이콘은 검색 중인 도시를 기준으로 지도를 열고 닫는 토글 기능을 제공한다.
+
+---
+
+## 환경 리포트 📊
+
+`/report` 경로에 날씨와 대기질을 종합 비교하는 환경 리포트를 추가하였다.
+
+- 가장 맑은 도시
+- 관심이 필요한 도시
+- 평균 PM2.5
+- 도시별 공기질 순위
+- 도시별 기온 및 날씨 상태
+- 새로고침을 통한 API 재조회
+- 마지막 데이터 업데이트 시간
+
+다섯 도시 기준으로 작성했던 문구는 현재 여섯 도시 기준으로 수정하였다.
+
+---
+
+## 도시 비교 기능 ⚖️
+
+`/compare` 경로에 두 도시의 실시간 상태를 비교하는 페이지를 추가하였다.
+
+사용자가 두 도시를 선택하면 OpenWeatherMap과 Open-Meteo API를 다시 호출하여 다음 항목을 나란히 표시한다.
+
+- 기온
+- 날씨 상태
+- 습도
+- 풍속
+- PM10
+- PM2.5
+- 미세먼지 등급
+
+화면 폭이 좁아지면 비교 카드가 세로로 전환되도록 반응형으로 구성하였다.
+
+---
+
+## API 키 및 환경 변수 관리
+
+OpenWeatherMap API 키는 코드에 직접 작성하지 않고 Vite 환경 변수로 관리하였다.
+
+```env
+VITE_WEATHER_API_KEY=your_openweathermap_api_key
+```
+
+실제 키가 포함된 `.env`와 환경별 설정 파일은 `.gitignore`에 등록하였다.
+공유 가능한 템플릿은 `.env.example`로 제공한다.
+
+```gitignore
+.env
+.env.*
+!.env.example
+```
+
+단, `VITE_` 환경 변수는 프론트엔드 빌드 결과에 포함되므로 운영 환경에서는
+OpenWeatherMap 콘솔에서 도메인 제한과 사용량 제한을 설정해야 한다.
+
+---
+
+# Weather Deployment - Hands on
+
+## Source Code 품질관리
+
+ESLint flat config를 추가하여 JavaScript와 Vue 파일을 점검하도록 구성하였다.
+
+```bash
+npm run lint
+```
+
+현재 ESLint 결과는 `0 errors`이며, 기존 실습 파일에 대한 포맷 관련 warning만 남아 있다.
+실습 기록의 코드를 대규모로 포맷팅하지 않고 실제 오류만 제거하였다.
+
+자동 수정이 필요한 경우 다음 명령을 사용할 수 있다.
+
+```bash
+npm run lint:fix
+```
+
+## Build
+
+제출용 정적 파일은 다음 명령으로 생성한다.
+
+```bash
+npm run build
+```
+
+빌드 결과는 `dist/` 폴더에 생성된다.
+
+## 정적 파일 Hosting 확인
+
+빌드된 `dist/`를 Vite Preview 서버로 호스팅하여 배포 결과를 확인할 수 있다.
+
+```bash
+npm run preview -- --host 127.0.0.1 --port 4173
+```
+
+브라우저에서 다음 주소로 접속한다.
+
+```text
+http://127.0.0.1:4173/
+```
+
+실제 서버에 배포할 때는 `dist/` 폴더를 정적 파일 서버의 public 디렉터리로 업로드하면 된다.
