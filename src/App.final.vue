@@ -57,6 +57,10 @@ const toggleTheme = () => {
             <v-icon class="nav-icon" icon="mdi-map-outline" />
             <span>도시 지도</span>
           </RouterLink>
+          <RouterLink to="/report" class="nav-item">
+            <v-icon class="nav-icon" icon="mdi-chart-donut" />
+            <span>환경 리포트</span>
+          </RouterLink>
           <RouterLink to="/about" class="nav-item">
             <v-icon class="nav-icon" icon="mdi-information-outline" />
             <span>서비스 안내</span>
