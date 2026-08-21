@@ -402,3 +402,35 @@ function toggleDarkMode() {
 
 Pinia에서는 다크모드 상태만 관리하고,
 실제 화면 색상 변경은 CSS Class를 통해 처리하였다.
+
+---
+
+# Weather Axios - Hands on
+
+## 실제 날씨 API 연동 및 외부 API 확장 기능 구현 🌤️🌫️
+
+기존 Weather Application에서는 Mock Data를 사용하여 날씨 정보를 표시하였지만,
+Axios를 활용하여 OpenWeatherMap API와 Open-Meteo Air Quality API를 연동하여
+실제 날씨 데이터와 대기질 정보를 제공하도록 확장하였다.
+
+---
+
+### Axios 라이브러리 활용
+
+실제 외부 API와 통신하기 위해 Axios 라이브러리를 설치하고 활용하였다.
+
+### OpenWeatherMap API 연동 🌤️
+
+OpenWeatherMap API를 활용하여 실제 날씨 데이터를 가져오도록 변경하였다.
+
+### 환경 변수 활용
+
+API Key를 코드에 직접 작성하지 않고 `.env` 파일을 활용하여 관리하였다.
+
+### Open-Meteo Air Quality API 추가 🌫️
+
+#### 추가 기능 구현
+기존 날씨 정보뿐만 아니라 사용자의 외출 판단에 도움을 줄 수 있도록
+대기질 정보를 제공하는 기능을 추가하였다.
+Open-Meteo Air Quality API를 추가 연동하여
+미세먼지와 초미세먼지 정보를 제공하도록 확장하였다.
