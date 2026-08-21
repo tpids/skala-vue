@@ -3,6 +3,10 @@ import WeatherMockup from './components/exercise/WeatherMockup.vue'
 import WeatherComposition from './components/exercise/WeatherComposition.vue'
 import WeatherParent from './components/exercise/WeatherParent.vue'
 import UnitToggler from './views/UnitToggler.vue'
+import { useConfigStore } from './stores/configStore'
+
+const configStore = useConfigStore()
+
 </script>
 
 <template>
@@ -42,7 +46,7 @@ import UnitToggler from './views/UnitToggler.vue'
       </main>
     </div>
   </div>
-  <div class="app-container">
+  <div :class="{ 'dark-mode': configStore.isDarkMode }">
     <h1>⛅ 과제 5: 스토어적용</h1>
     <hr />
     <div class="dashboard-wrapper">

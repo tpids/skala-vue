@@ -132,3 +132,122 @@ input {
   font-weight: bold;
   border-radius: 6px;
 }
+
+/* Dark Mode Styles */
+
+.dark-mode {
+  background-color: #121212;
+  color: #eeeeee;
+  min-height: 100vh;
+}
+
+
+/* 전체 앱 컨테이너 */
+.dark-mode .app-container {
+  background-color: #1e1e1e;
+  color: #eeeeee;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Navigation */
+.dark-mode .navigation-bar {
+  background-color: #242424;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .nav-item {
+  color: #bbbbbb;
+}
+
+.dark-mode .nav-item:hover {
+  color: #ffffff;
+}
+
+.dark-mode .navigation-bar .router-link-exact-active {
+  color: #64b5f6;
+  border-bottom-color: #64b5f6;
+}
+
+
+/* 검색 / 리스트 영역 */
+.dark-mode .search-box,
+.dark-mode .list-box {
+  background-color: #242424;
+  border-color: #444;
+}
+
+.dark-mode input {
+  background-color: #333;
+  color: #ffffff;
+  border: 1px solid #555;
+}
+
+.dark-mode input::placeholder {
+  color: #aaaaaa;
+}
+
+
+/* Weather Card */
+.dark-mode .weather-card {
+  background-color: #2a2a2a;
+  border-color: #444;
+  color: #ffffff;
+}
+
+.dark-mode .weather-card:hover {
+  background-color: #333333;
+}
+
+
+/* 버튼 */
+.dark-mode button {
+  background-color: #3a506b;
+  color: white;
+  border-color: #555;
+}
+
+.dark-mode button:hover {
+  background-color: #557a95;
+}
+
+
+/* 상태바 */
+.dark-mode .status-bar {
+  background-color: #263238;
+  color: #81c784;
+}
+
+
+/* BaseDashboardCard 같은 흰색 카드 */
+.dark-mode .base-dashboard-card {
+  background-color: #242424;
+  color: #ffffff;
+  border-color: #444;
+}
+
+
+/* 즐겨찾기 */
+.dark-mode .favorite-item {
+  background-color: #332f20;
+  color: #ffffff;
+}
+
+.dark-mode .favorite-item:hover {
+  background-color: #4a4225;
+}
+
+
+/* 제목 */
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4 {
+  color: #ffffff;
+}
+
+
+/* 구분선 */
+.dark-mode hr {
+  border-color: #444;
+}

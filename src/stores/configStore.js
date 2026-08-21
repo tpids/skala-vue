@@ -18,6 +18,19 @@ export const useConfigStore = defineStore('config', () => {
     return unit.value === 'celsius'
   })
 
+  // 다크모드 상태
+  const isDarkMode = ref(false)
+
+  // 다크모드 상태 확인
+  const themeSymbol = computed(() => {
+    return isDarkMode.value ? '🌙' : '☀️'
+  })
+
+  function toggleDarkMode() {
+    // 다크모드 토글
+    isDarkMode.value = !isDarkMode.value
+  }
+
   // action
   function toggleUnit() {
     unit.value =
@@ -42,5 +55,8 @@ export const useConfigStore = defineStore('config', () => {
     isCelsius,
     toggleUnit,
     convertTemperature,
+    isDarkMode,
+    themeSymbol,
+    toggleDarkMode,
   }
 })
