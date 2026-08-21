@@ -1,13 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useConfigStore } from '../stores/configStore'
 import { getWeather, normalizeWeatherStatus } from '../api/weatherApi.js'
 import { getAirQuality, getLatestAirQuality, getAirQualityGrade } from '../api/airQualityApi.js'
 import { getCityByName } from '../api/cityData.js'
+import FavoriteWeather from '../components/exercise/FavoriteWeather.vue'
 
 const router = useRouter()
-const configStore = useConfigStore()
 
 const favoriteCities = ref(
   JSON.parse(localStorage.getItem('favoriteCities') || '[]')
@@ -70,15 +69,16 @@ onMounted(fetchFavoriteWeather)
 
     <p v-if="isLoading">즐겨찾기 날씨 정보를 불러오는 중입니다.</p>
     <p v-else-if="fetchError">일부 날씨 정보를 불러오지 못했습니다.</p>
-    <ul v-else-if="favoriteList.length > 0" class="favorite-list">
-      <li v-for="item in favoriteList" :key="item.id" class="favorite-item" @click="goDetail(item.id)">
-        <span>{{ item.name }}</span>
-        <span>
-          {{ configStore.convertTemperature(item.temp) }}{{ configStore.unitSymbol }} · {{ item.status }} ·
-          {{ item.airQualityGrade }}
-        </span>
-      </li>
-    </ul>
+    <div v-else-if="favoriteList.length > 0" class="favorite-grid">
+      <div
+        v-for="item in favoriteList"
+        :key="item.id"
+        class="favorite-card-link"
+        @click="goDetail(item.id)"
+      >
+        <FavoriteWeather :weather="item" />
+      </div>
+    </div>
     <p v-else>즐겨찾기에 등록된 지역이 없습니다.</p>
 
     <button class="back-btn" @click="router.push('/')">← 메인 대시보드로 돌아가기</button>
@@ -92,22 +92,18 @@ onMounted(fetchFavoriteWeather)
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
-.favorite-list {
-  list-style: none;
-  padding: 0;
-  margin: 15px 0;
+.favorite-grid {
+  display: grid;
+  gap: 12px;
+  margin: 15px -5px;
 }
-.favorite-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 12px;
-  margin-bottom: 8px;
-  background: var(--surface-soft);
-  border-radius: 6px;
+.favorite-card-link {
   cursor: pointer;
+  border-radius: 16px;
+  transition: transform 0.2s ease;
 }
-.favorite-item:hover {
-  background: var(--lime);
+.favorite-card-link:hover {
+  transform: translateY(-2px);
 }
 .back-btn {
   padding: 8px 12px;

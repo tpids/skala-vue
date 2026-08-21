@@ -8,7 +8,6 @@ import { CITIES } from '../api/cityData.js'
 import BaseDashboardCard from '../components/exercise/BaseDashboardCard.vue'
 import SearchBar from '../components/exercise/SearchBar.vue'
 import WeatherCard from '../components/exercise/WeatherCard.vue'
-import FavoriteWeather from '../components/exercise/FavoriteWeather.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -46,7 +45,7 @@ const fetchWeather = async () => {
   weatherList.value = result.filter(Boolean)
 }
 
-// 검색어 및 선택된 도시
+// 검색어 및 선택 상태
 const searchQuery = ref('')
 const selectedCityInfo = ref('카드를 클릭하거나 검색해 보세요.')
 
@@ -68,13 +67,6 @@ const favoriteCities = ref(
   JSON.parse(localStorage.getItem('favoriteCities') || '["서울"]')
 )
 
-// 즐겨찾기 도시
-const favoriteWeather = computed(() => {
-  return weatherList.value.filter(
-    (item) => favoriteCities.value.includes(item.name)
-  )
-})
-
 // 초기 마운트 시 검색어 복원
 onMounted(() => {
   if(route.query.search){
@@ -93,19 +85,17 @@ watch(searchQuery, (newQuery) => {
   })
 })
 
-// 선택된 도시 감시
-watch(selectedCityInfo, (newInfo) => {
-  console.log(
-    `[watch 감지] 상태 바 문구가 업데이트되었습니다 -> "${newInfo}"`
-  )
-})
-
 // 검색어 감시
 watchEffect(() => {
   console.log(
     `[watchEffect 자동 호출] 현재 검색어 '${searchQuery.value}'에 매칭되는 API 데이터를 필터링합니다.`
   )
 })
+
+// 선택된 도시 상태 표시
+const selectCard = (city) => {
+  selectedCityInfo.value = `${city.name}이 선택되었습니다.`
+}
 
 // 즐겨찾기 감시
 watch(favoriteCities, (newCities) => {
@@ -119,11 +109,6 @@ watch(favoriteCities, (newCities) => {
 // 검색어 변경
 const updateQuery = (query) => {
   searchQuery.value = query
-}
-
-// 도시 선택
-const selectCard = (city) => {
-  selectedCityInfo.value = `${city.name}이 선택되었습니다.`
 }
 
 // 상세보기 → Programmatic Navigation
@@ -163,17 +148,19 @@ const setFavorite = (city) => {
     <BaseDashboardCard>
       <h3>🏙️ 지역별 날씨 현황</h3>
 
-      <div
-        v-for="item in filteredWeatherList"
-        :key="item.id"
-      >
-        <WeatherCard
-          :weather="item"
-          :is-favorite="favoriteCities.includes(item.name)"
-          @select-card="selectCard"
-          @click-detail="showDetail"
-          @set-favorite="setFavorite"
-        />
+      <div class="weather-grid">
+        <div
+          v-for="item in filteredWeatherList"
+          :key="item.id"
+        >
+          <WeatherCard
+            :weather="item"
+            :is-favorite="favoriteCities.includes(item.name)"
+            @select-card="selectCard"
+            @click-detail="showDetail"
+            @set-favorite="setFavorite"
+          />
+        </div>
       </div>
 
       <p
@@ -185,27 +172,22 @@ const setFavorite = (city) => {
       </p>
     </BaseDashboardCard>
 
-    <!-- 상태바 -->
     <div class="status-bar">
       {{ selectedCityInfo }}
     </div>
-
-    <FavoriteWeather
-    v-for="weather in favoriteWeather"
-    :key="weather.id"
-    :weather="weather"
-    />
 
   </div>
 </template>
 
 <style scoped>
 .status-bar {
-  background: #e8f5e9;
-  padding: 10px;
+  padding: 12px 16px;
+  color: var(--text-body);
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
   text-align: center;
-  color: #2e7d32;
-  font-weight: bold;
-  border-radius: 6px;
 }
 </style>
