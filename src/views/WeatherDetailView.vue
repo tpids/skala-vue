@@ -33,7 +33,7 @@ onMounted(() => {
     <div v-if="cityData" class="info-card">
       <h4>📍 지정 지역: {{ cityData.name }}</h4>
       <p>
-        실시간 기온: <strong> {{configStore.unit === 'celsius' ? cityData.temp: (cityData.temp * 9 / 5 + 32).toFixed(1)}}{{ configStore.unitSymbol }}°C</strong>
+        실시간 기온: <strong> {{ configStore.convertTemperature(cityData.temp) }}{{ configStore.unitSymbol }}</strong>
       </p>
       <p>기상 현황: {{ cityData.status }}</p>
       <p>대기 습도: {{ cityData.humidity }}</p>

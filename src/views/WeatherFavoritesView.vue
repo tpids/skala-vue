@@ -39,7 +39,7 @@ const goDetail = (id) => {
     <ul v-if="favoriteList.length > 0" class="favorite-list">
       <li v-for="item in favoriteList" :key="item.id" class="favorite-item" @click="goDetail(item.id)">
         <span>{{ item.name }}</span>
-        <span>{{configStore.unit === 'celsius' ? item.temp : (item.temp * 9 / 5 + 32).toFixed(1)}}{{ configStore.unitSymbol }} · {{ item.status }}</span>
+        <span>{{configStore.convertTemperature(item.temp) }}{{ configStore.unitSymbol }} · {{ item.status }}</span>
       </li>
     </ul>
     <p v-else>즐겨찾기에 등록된 지역이 없습니다.</p>

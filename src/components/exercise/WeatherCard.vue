@@ -44,11 +44,7 @@ const setFavorite = () => {
 
     <p>
       현재 기온:
-      {{
-        configStore.unit === 'celsius'
-          ? weather.temp
-          : (weather.temp * 9 / 5 + 32).toFixed(1)
-      }}{{ configStore.unitSymbol }}
+      {{configStore.convertTemperature(weather.temp) }}{{ configStore.unitSymbol }}
     </p>
 
     <span
