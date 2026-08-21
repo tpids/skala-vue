@@ -26,15 +26,16 @@ const toggleTheme = () => {
 
         <div class="header-actions">
           <span class="live-status"><i></i> LIVE DATA</span>
-          <button
+          <v-btn
             class="theme-button"
-            type="button"
+            icon
+            variant="outlined"
             :aria-label="configStore.isDarkMode ? '라이트 모드' : '다크 모드'"
             :title="configStore.isDarkMode ? '라이트 모드' : '다크 모드'"
             @click="toggleTheme"
           >
-            {{ configStore.themeSymbol }}
-          </button>
+            <v-icon :icon="configStore.isDarkMode ? 'mdi-weather-sunny' : 'mdi-weather-night'" />
+          </v-btn>
         </div>
       </div>
     </header>
@@ -44,16 +45,16 @@ const toggleTheme = () => {
         <div class="sidebar-label">MONITORING</div>
         <nav class="main-nav" aria-label="주요 메뉴">
           <RouterLink to="/" class="nav-item">
-            <span class="nav-icon">◉</span>
+            <v-icon class="nav-icon" icon="mdi-view-dashboard-outline" />
             <span>대시보드</span>
             <span class="nav-arrow">↗</span>
           </RouterLink>
           <RouterLink to="/favorites" class="nav-item">
-            <span class="nav-icon">★</span>
+            <v-icon class="nav-icon" icon="mdi-star-outline" />
             <span>관심 지역</span>
           </RouterLink>
           <RouterLink to="/about" class="nav-item">
-            <span class="nav-icon">i</span>
+            <v-icon class="nav-icon" icon="mdi-information-outline" />
             <span>서비스 안내</span>
           </RouterLink>
         </nav>

@@ -68,12 +68,15 @@ const setFavorite = () => {
       </span>
     </p>
 
-    <button
+    <v-btn
       class="btn-detail"
+      size="small"
+      variant="tonal"
+      prepend-icon="mdi-chart-line"
       @click.stop="clickDetail"
     >
       상세보기
-    </button>
+    </v-btn>
 
     <button
       class="btn-favorite"

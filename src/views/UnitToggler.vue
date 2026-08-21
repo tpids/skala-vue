@@ -22,21 +22,25 @@ const configStore = useConfigStore()
       </strong>
     </span>
 
-    <button
+    <v-btn
+      size="small"
+      variant="tonal"
       @click="configStore.toggleUnit"
       class="toggle-btn"
     >
       단위변경
-    </button>
+    </v-btn>
 
     <!-- 다크모드 -->
-    <button
+    <v-btn
+      size="small"
+      variant="text"
       @click="configStore.toggleDarkMode"
       class="toggle-btn"
     >
-      {{ configStore.themeSymbol }}
+      <v-icon :icon="configStore.isDarkMode ? 'mdi-weather-sunny' : 'mdi-weather-night'" />
       {{ configStore.isDarkMode ? '라이트모드' : '다크모드' }}
-    </button>
+    </v-btn>
   </div>
 </template>
 
