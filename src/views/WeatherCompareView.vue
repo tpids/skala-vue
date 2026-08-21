@@ -47,7 +47,7 @@ const fetchComparison = async () => {
   try {
     const [first, second] = await Promise.all([fetchCity(firstCity.value), fetchCity(secondCity.value)])
     cityData.value = { [first.id]: first, [second.id]: second }
-  } catch (error) {
+  } catch {
     hasError.value = true
   } finally {
     isLoading.value = false

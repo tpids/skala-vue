@@ -33,7 +33,7 @@ const fetchReport = async () => {
         pm10: air.pm10,
         grade: getAirQualityGrade(air.pm25),
       }
-    } catch (error) {
+    } catch {
       hasError.value = true
       return null
     }

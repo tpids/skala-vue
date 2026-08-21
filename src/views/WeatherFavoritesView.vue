@@ -44,7 +44,7 @@ const fetchFavoriteWeather = async () => {
           pm25: airQuality.pm25,
           airQualityGrade: getAirQualityGrade(airQuality.pm25),
         }
-      } catch (error) {
+      } catch {
         fetchError.value = true
         return null
       }
