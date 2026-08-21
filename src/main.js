@@ -5,7 +5,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createVuetify } from 'vuetify'
-import { VBtn, VIcon, VSnackbar } from 'vuetify/components'
+import { VBtn, VIcon, VProgressCircular, VSnackbar } from 'vuetify/components'
 
 // import App from './App.vue'
 // import App from './App.exercise.vue'
@@ -18,6 +18,7 @@ const vuetify = createVuetify({
 	components: {
 		VBtn,
 		VIcon,
+		VProgressCircular,
 		VSnackbar,
 	},
 	theme: {
@@ -26,7 +27,7 @@ const vuetify = createVuetify({
 			weatherLight: {
 				dark: false,
 				colors: {
-					primary: '#18333a',
+					primary: '#2a5554',
 					secondary: '#d5f36b',
 					surface: '#ffffff',
 				},
