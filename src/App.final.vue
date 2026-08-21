@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import UnitToggler from './views/UnitToggler.vue'
 import { useConfigStore } from './stores/configStore'
 
 const route = useRoute()
@@ -26,6 +25,16 @@ const toggleTheme = () => {
 
         <div class="header-actions">
           <span class="live-status"><i></i> LIVE DATA</span>
+          <v-btn
+            class="theme-button unit-button"
+            icon
+            variant="outlined"
+            :aria-label="configStore.isCelsius ? '화씨로 전환' : '섭씨로 전환'"
+            :title="configStore.isCelsius ? '화씨로 전환' : '섭씨로 전환'"
+            @click="configStore.toggleUnit"
+          >
+            {{ configStore.isCelsius ? '°C' : '°F' }}
+          </v-btn>
           <v-btn
             class="theme-button"
             icon
@@ -68,10 +77,6 @@ const toggleTheme = () => {
         </nav>
 
         <div class="sidebar-bottom">
-          <div class="unit-panel">
-            <span class="unit-label">표시 단위</span>
-            <UnitToggler />
-          </div>
           <p class="sidebar-note">OpenWeather와<br />Open-Meteo 데이터 기반</p>
         </div>
       </aside>

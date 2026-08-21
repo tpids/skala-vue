@@ -61,7 +61,7 @@ onMounted(fetchReport)
       <div>
         <span class="page-kicker">AIR & WEATHER / COMPARISON</span>
         <h1>환경 리포트</h1>
-        <p>다섯 도시의 날씨와 공기 상태를 비교합니다.</p>
+        <p>여섯 도시의 날씨와 공기 상태를 비교합니다.</p>
       </div>
       <v-btn
         variant="tonal"
@@ -87,7 +87,7 @@ onMounted(fetchReport)
         <div class="summary-item average">
           <span>평균 PM2.5</span>
           <strong>{{ averagePm25 }}</strong>
-          <small>μg/m³ · 다섯 도시 기준</small>
+          <small>μg/m³ · 여섯 도시 기준</small>
         </div>
         <div class="summary-item worst">
           <span>관심이 필요한 도시</span>

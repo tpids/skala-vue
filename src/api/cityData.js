@@ -4,6 +4,7 @@ export const CITIES = [
   { id: 'city_03', name: '부산', city: 'Busan', lat: 35.1796, lon: 129.0756 },
   { id: 'city_04', name: '광주', city: 'Gwangju', lat: 35.1595, lon: 126.8526 },
   { id: 'city_05', name: '제주', city: 'Jeju', lat: 33.4996, lon: 126.5312 },
+  { id: 'city_06', name: '인천', city: 'Incheon', lat: 37.4563, lon: 126.7052 },
 ]
 
 export const getCityById = (cityId) => {

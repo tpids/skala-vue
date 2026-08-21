@@ -56,6 +56,7 @@ body { display: block !important; margin: 0; }
 .live-status { color: var(--muted); font-size: 10px; letter-spacing: 1.3px; font-weight: 800; }
 .live-status i { width: 7px; height: 7px; display: inline-block; margin-right: 6px; background: #53c577; border-radius: 50%; box-shadow: 0 0 0 4px rgba(83, 197, 119, 0.14); }
 .theme-button { width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; background: transparent; cursor: pointer; font-size: 16px; }
+.unit-button { color: var(--text-strong); font-size: 11px; font-weight: 800; }
 
 .page-frame { width: 100%; min-height: calc(100vh - 82px); padding: 0 clamp(24px, 5vw, 96px); display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: clamp(36px, 5vw, 96px); }
 .sidebar { min-height: calc(100vh - 82px); padding: 42px 0 30px; display: flex; flex-direction: column; }
@@ -70,7 +71,7 @@ body { display: block !important; margin: 0; }
 .unit-panel .unit-label { display: block; margin-bottom: 10px; color: #aabbb9; }
 .unit-panel > div { margin: 0 !important; justify-content: space-between; }
 .unit-panel button { padding: 5px 8px !important; color: var(--navy) !important; background: var(--lime) !important; font-size: 11px; }
-.unit-panel button:nth-of-type(2) { display: none; }
+.unit-panel > div > .toggle-btn:nth-of-type(2) { display: none; }
 .sidebar-note { margin: 20px 0 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
 
 .content-area { min-width: 0; padding: 43px 0 70px; }

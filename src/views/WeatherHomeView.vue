@@ -210,7 +210,7 @@ const setFavorite = (city) => {
 
     <!-- 날씨 목록 -->
     <BaseDashboardCard>
-      <h3>🏙️ 지역별 날씨 현황</h3>
+      <h3>지역별 날씨 현황</h3>
 
       <div class="weather-grid">
         <div

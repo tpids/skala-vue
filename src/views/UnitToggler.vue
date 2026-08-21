@@ -14,22 +14,24 @@ const configStore = useConfigStore()
       gap: 8px;
     "
   >
-    <!-- 온도 단위 -->
-    <span>
-      날씨단위:
-      <strong>
-        {{ configStore.unit === 'celsius' ? '섭씨(℃)' : '화씨(℉)' }}
-      </strong>
-    </span>
-
-    <v-btn
-      size="small"
-      variant="tonal"
-      @click="configStore.toggleUnit"
-      class="toggle-btn"
-    >
-      단위변경
-    </v-btn>
+    <div class="unit-switch" role="group" aria-label="온도 단위 선택">
+      <button
+        type="button"
+        :class="{ active: configStore.unit === 'celsius' }"
+        :aria-pressed="configStore.unit === 'celsius'"
+        @click="configStore.unit !== 'celsius' && configStore.toggleUnit()"
+      >
+        °C
+      </button>
+      <button
+        type="button"
+        :class="{ active: configStore.unit === 'fahrenheit' }"
+        :aria-pressed="configStore.unit === 'fahrenheit'"
+        @click="configStore.unit !== 'fahrenheit' && configStore.toggleUnit()"
+      >
+        °F
+      </button>
+    </div>
 
     <!-- 다크모드 -->
     <v-btn
@@ -53,6 +55,32 @@ const configStore = useConfigStore()
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+}
+
+.unit-switch {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+}
+
+.unit-switch button {
+  min-width: 31px;
+  padding: 4px 6px;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.unit-switch button.active {
+  color: var(--deep);
+  background: var(--lime);
 }
 
 .toggle-btn:hover {
