@@ -1,4 +1,8 @@
 <script setup>
+import { useConfigStore } from '@/stores/configStore'
+
+const configStore = useConfigStore()
+
 const props = defineProps({
   weather: {
     type: Object,
@@ -39,7 +43,12 @@ const setFavorite = () => {
     </h4>
 
     <p>
-      현재 기온: {{ weather.temp }}°C
+      현재 기온:
+      {{
+        configStore.unit === 'celsius'
+          ? weather.temp
+          : (weather.temp * 9 / 5 + 32).toFixed(1)
+      }}{{ configStore.unitSymbol }}
     </p>
 
     <span

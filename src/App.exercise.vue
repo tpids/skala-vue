@@ -2,7 +2,7 @@
 import WeatherMockup from './components/exercise/WeatherMockup.vue'
 import WeatherComposition from './components/exercise/WeatherComposition.vue'
 import WeatherParent from './components/exercise/WeatherParent.vue'
-// import UnitToggler from './components/exercise/UnitToggler.vue'
+import UnitToggler from './views/UnitToggler.vue'
 </script>
 
 <template>
@@ -48,6 +48,8 @@ import WeatherParent from './components/exercise/WeatherParent.vue'
     <div class="dashboard-wrapper">
       <nav class="navigation-bar">
         <RouterLink to="/" class="nav-item">🌦️ 날씨 대시보드</RouterLink>
+        <span class="divider">|</span>
+        <RouterLink to="/favorites" class="nav-item">⭐ 즐겨찾기</RouterLink>
         <span class="divider">|</span>
         <RouterLink to="/about" class="nav-item">ℹ️ 서비스 소개</RouterLink>
         <UnitToggler />
