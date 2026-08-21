@@ -1,6 +1,7 @@
 <script setup>
-import { ref, computed, watch, watchEffect } from 'vue'
+import { ref, computed, watch, watchEffect, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { getWeather, normalizeWeatherStatus } from '../api/weatherApi.js'
 
 import BaseDashboardCard from '../components/exercise/BaseDashboardCard.vue'
 import SearchBar from '../components/exercise/SearchBar.vue'
@@ -10,14 +11,46 @@ import FavoriteWeather from '../components/exercise/FavoriteWeather.vue'
 const router = useRouter()
 const route = useRoute()
 
-// 날씨 데이터
-const weatherList = ref([
-  { id: 'city_01', name: '서울', temp: 28, status: '맑음' },
-  { id: 'city_02', name: '수원', temp: 24, status: '비' },
-  { id: 'city_03', name: '부산', temp: 26, status: '구름' },
-  { id: 'city_04', name: '광주', temp: 30, status: '맑음' },
-  { id: 'city_05', name: '제주', temp: 22, status: '비' },
-])
+// 날씨 데이터 api 호출
+const weatherList = ref([])
+
+const cities = [
+  { id:'city_01', name:'서울', city:'Seoul' },
+  { id:'city_02', name:'수원', city:'Suwon' },
+  { id:'city_03', name:'부산', city:'Busan' },
+  { id:'city_04', name:'광주', city:'Gwangju' },
+  { id:'city_05', name:'제주', city:'Jeju' },
+]
+
+
+const fetchWeather = async () => {
+
+  const result = []
+
+  for (const city of cities) {
+
+    try {
+
+      const response = await getWeather(city.city)
+
+      result.push({
+        id: city.id,
+        name: city.name,
+        temp: Math.round(response.data.main.temp),
+        status: normalizeWeatherStatus(response.data.weather[0].description),
+        humidity: response.data.main.humidity,
+        wind: response.data.wind.speed,
+        icon: response.data.weather[0].icon
+      })
+
+    } catch(error) {
+      console.log(`${city.name} API 오류`, error)
+    }
+
+  }
+
+  weatherList.value = result
+}
 
 // 검색어 및 선택된 도시
 const searchQuery = ref('')
@@ -49,12 +82,11 @@ const favoriteWeather = computed(() => {
 })
 
 // 초기 마운트 시 검색어 복원
-import { onMounted } from 'vue'
-
 onMounted(() => {
-  if (route.query.search) {
+  if(route.query.search){
     searchQuery.value = route.query.search
   }
+  fetchWeather()
 })
 
 // 검색어 변경 시 URL 쿼리 변경

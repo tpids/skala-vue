@@ -2,25 +2,42 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useConfigStore } from '../stores/configStore'
+import { getWeather, normalizeWeatherStatus } from '../api/weatherApi.js'
 
 const route = useRoute()
 const router = useRouter()
 const configStore = useConfigStore()
 
-const mockDetails = {
-  city_01: { name: '대한민국 서울특별시', temp: 28, status: '맑음', humidity: '55%', wind: '2.5m/s' },
-  city_02: { name: '경기도 수원시 영통구', temp: 24, status: '비', humidity: '85%', wind: '4.1m/s' },
-  city_03: { name: '부산광역시 해운대구', temp: 26, status: '구름', humidity: '65%', wind: '5.0m/s' },
-  city_04: { name: '광주광역시 광산구', temp: 30, status: '맑음', humidity: '50%', wind: '3.2m/s' },
-  city_05: { name: '제주특별자치도', temp: 22, status: '비', humidity: '80%', wind: '6.3m/s' },
+const cities = {
+  city_01: { name: '서울', city: 'Seoul' },
+  city_02: { name: '수원', city: 'Suwon' },
+  city_03: { name: '부산', city: 'Busan' },
+  city_04: { name: '광주', city: 'Gwangju' },
+  city_05: { name: '제주', city: 'Jeju' },
 }
 
 const cityData = ref(null)
+const fetchError = ref(false)
 
-onMounted(() => {
-  const id = route.params.cityId
-  if (mockDetails[id]) {
-    cityData.value = mockDetails[id]
+onMounted(async () => {
+  const city = cities[route.params.cityId]
+
+  if (!city) {
+    return
+  }
+
+  try {
+    const response = await getWeather(city.city)
+    const data = response.data
+    cityData.value = {
+      name: city.name,
+      temp: data.main.temp,
+      status: normalizeWeatherStatus(data.weather[0].description),
+      humidity: `${data.main.humidity}%`,
+      wind: `${data.wind.speed}m/s`,
+    }
+  } catch (error) {
+    fetchError.value = true
   }
 })
 </script>
@@ -38,6 +55,9 @@ onMounted(() => {
       <p>기상 현황: {{ cityData.status }}</p>
       <p>대기 습도: {{ cityData.humidity }}</p>
       <p>현재 풍속: {{ cityData.wind }}</p>
+    </div>
+    <div v-else-if="fetchError">
+      <p>날씨 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>
     </div>
     <div v-else>
       <p>해당 지역의 상세 데이터 장부가 존재하지 않습니다.</p>
