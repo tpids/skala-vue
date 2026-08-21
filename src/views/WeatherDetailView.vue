@@ -74,21 +74,21 @@ onMounted(async () => {
 <style scoped>
 .detail-container {
   margin: 0 auto;
-  background: white;
+  background: var(--panel);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 .info-card {
-  background: #f1f2f6;
+  background: var(--surface-muted);
   padding: 15px;
   border-radius: 6px;
   margin: 15px 0;
 }
 .back-btn {
   padding: 8px 12px;
-  background: #2c3e50;
-  color: white;
+  background: var(--deep);
+  color: var(--panel);
   border: none;
   border-radius: 4px;
   cursor: pointer;

@@ -87,7 +87,7 @@ onMounted(fetchFavoriteWeather)
 
 <style scoped>
 .favorites-container {
-  background: white;
+  background: var(--panel);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
@@ -102,17 +102,17 @@ onMounted(fetchFavoriteWeather)
   justify-content: space-between;
   padding: 10px 12px;
   margin-bottom: 8px;
-  background: #fff8e1;
+  background: var(--surface-soft);
   border-radius: 6px;
   cursor: pointer;
 }
 .favorite-item:hover {
-  background: #ffecb3;
+  background: var(--lime);
 }
 .back-btn {
   padding: 8px 12px;
-  background: #2c3e50;
-  color: white;
+  background: var(--deep);
+  color: var(--panel);
   border: none;
   border-radius: 4px;
   cursor: pointer;
