@@ -1,8 +1,25 @@
-# Weather Mockup - Hands on
+# skala-vue 실습
+
+## 배포
+https://skala-vue-kappa.vercel.app/
+
+## 목차
+📑 목차
+├─ Weather Mockup - Hands on
+├─ Weather Composition - Hands on
+├─ Weather Component - Hands on
+├─ Weather Router - Hands on
+├─ Weather Store - Hands on
+├─ Weather Axios - Hands on
+├─ Weather UI Library - Hands on
+├─ 최종 과제 구성
+└─ API 키 및 환경 변수 관리 및 배포
+
+## Weather Mockup - Hands on
 
 기본으로 제공된 Weather Mockup 코드에 개인적으로 기능과 데이터를 추가하여 확장했다.
 
-## 1. 도시 데이터 추가
+### 1. 도시 데이터 추가
 
 기본 데이터인 서울, 수원, 부산 외에 직접 도시 데이터를 추가했다.
 
@@ -18,7 +35,7 @@
 
 ---
 
-## 2. 실제 도시 검색 및 카드 필터링 기능 추가
+### 2. 실제 도시 검색 및 카드 필터링 기능 추가
 
 기본 코드에서는 검색창에 입력한 도시명을 단순히 화면에 출력하는 형태였지만, 이를 실제 검색 기능으로 확장했다.
 
@@ -44,7 +61,7 @@ const filteredWeatherList = computed(() => {
 
 ---
 
-## 3. 검색 결과 없음 처리
+### 3. 검색 결과 없음 처리
 
 존재하지 않는 도시를 검색했을 때 사용자에게 검색 결과가 없다는 것을 알려주는 기능을 추가했다.
 
@@ -64,7 +81,7 @@ const filteredWeatherList = computed(() => {
 
 ---
 
-## 4. Customization 정리
+### 4. Customization 정리
 
 기본 스켈레톤 코드에서 제공된 기능을 기반으로 다음과 같은 기능을 직접 추가했다.
 
@@ -78,9 +95,9 @@ const filteredWeatherList = computed(() => {
 
 ---
 
-# Weather Composition - Hands on
+## Weather Composition - Hands on
 
-## 추가 기능 구현 - 즐겨찾기 도시 기능 ⭐
+### 추가 기능 구현 - 즐겨찾기 도시 기능
 
 기본 요구사항 외에 Composition API 활용 능력을 높이기 위해 **즐겨찾기 도시 기능**을 추가 구현했다.
 
@@ -296,7 +313,7 @@ const favoriteCities = ref(
 
 # Weather Store - Hands on
 
-## 추가 기능 구현 - 날씨 설정 Store 확장 기능 🌡️🌙
+## 추가 기능 구현 - 날씨 설정 Store 확장 기능 
 
 기본으로 제공된 `configStore`를 확장하여 날씨 단위 변경 기능과 다크모드 기능을 추가 구현했다.
 
@@ -368,7 +385,7 @@ Component에서는 변환 계산식을 직접 작성하지 않고 Store의 함�
 
 ---
 
-## 다크모드 기능 추가 🌙
+## 다크모드 기능 추가 
 
 사용자의 화면 환경 설정을 개선하기 위해 다크모드 기능을 추가했다.
 `configStore`에서 다크모드 상태를 관리하고,
@@ -407,7 +424,7 @@ Pinia에서는 다크모드 상태만 관리하고,
 
 # Weather Axios - Hands on
 
-## 실제 날씨 API 연동 및 외부 API 확장 기능 구현 🌤️🌫️
+## 실제 날씨 API 연동 및 외부 API 확장 기능 구현 
 
 기존 Weather Application에서는 Mock Data를 사용하여 날씨 정보를 표시하였지만,
 Axios를 활용하여 OpenWeatherMap API와 Open-Meteo Air Quality API를 연동하여
@@ -419,7 +436,7 @@ Axios를 활용하여 OpenWeatherMap API와 Open-Meteo Air Quality API를 연동
 
 실제 외부 API와 통신하기 위해 Axios 라이브러리를 설치하고 활용했다.
 
-### OpenWeatherMap API 연동 🌤️
+### OpenWeatherMap API 연동 
 
 OpenWeatherMap API를 활용하여 실제 날씨 데이터를 가져오도록 변경했다.
 
@@ -427,7 +444,7 @@ OpenWeatherMap API를 활용하여 실제 날씨 데이터를 가져오도록 �
 
 API Key를 코드에 직접 작성하지 않고 `.env` 파일을 활용하여 관리했다.
 
-### Open-Meteo Air Quality API 추가 🌫️
+### Open-Meteo Air Quality API 추가 
 
 #### 추가 기능 구현
 기존 날씨 정보뿐만 아니라 사용자의 외출 판단에 도움을 줄 수 있도록
@@ -484,7 +501,7 @@ const vuetify = createVuetify({
 
 ---
 
-## 추가 도시 및 날씨 정보
+### 추가 도시 및 날씨 정보
 
 공통 도시 데이터 파일에 도시를 추가했다.
 
@@ -509,7 +526,7 @@ OpenWeatherMap의 날씨 응답에서 다음 데이터를 표시한다.
 
 ---
 
-## 도시 지도 기능 🗺️
+### 도시 지도 기능 
 
 사이드바의 `도시 지도` 메뉴를 별도의 `/map` View로 구성했다.
 
@@ -523,7 +540,7 @@ OpenWeatherMap의 날씨 응답에서 다음 데이터를 표시한다.
 
 ---
 
-## 환경 리포트 📊
+### 환경 리포트 
 
 `/report` 경로에 날씨와 대기질을 종합 비교하는 환경 리포트를 추가했다.
 
@@ -537,7 +554,7 @@ OpenWeatherMap의 날씨 응답에서 다음 데이터를 표시한다.
 
 ---
 
-## 도시 비교 기능 ⚖️
+### 도시 비교 기능 
 
 `/compare` 경로에 두 도시의 실시간 상태를 비교하는 페이지를 추가했다.
 
@@ -557,16 +574,22 @@ OpenWeatherMap의 날씨 응답에서 다음 데이터를 표시한다.
 
 ## API 키 및 환경 변수 관리
 
-OpenWeatherMap API 키는 코드에 직접 작성하지 않고 Vite 환경 변수로 관리했다.
+OpenWeatherMap API Key는 Vite 환경 변수로 관리한다.
+
+- 로컬 개발: `.env`
+- GitHub 공유: `.env.example`
+- 배포 환경: Vercel Environment Variables
+
+실제 API Key는 GitHub 저장소에 포함하지 않는다.
 
 ```env
 VITE_WEATHER_API_KEY=your_openweathermap_api_key
 ```
 
-실제 키가 포함된 `.env`와 환경별 설정 파일은 `.gitignore`에 등록했다.
-공유 가능한 템플릿은 `.env.example`로 제공한다.
+`.env`와 환경별 설정 파일은 .gitignore에 등록하고,
+공유 가능한 환경 변수 템플릿은 `.env.example`로 제공한다.
 
-```gitignore
+```
 .env
 .env.*
 !.env.example
@@ -574,47 +597,11 @@ VITE_WEATHER_API_KEY=your_openweathermap_api_key
 
 ---
 
-# Weather Deployment - Hands on
+## 🚀 배포
 
-## Source Code 품질관리
+- **배포 플랫폼**: Vercel
+- **배포 URL**: https://skala-vue-kappa.vercel.app/
+- **배포 방식**: GitHub 저장소 연동을 통한 자동 배포
 
-ESLint flat config를 추가하여 JavaScript와 Vue 파일을 점검하도록 구성했다.
+GitHub의 `main` 브랜치에 변경사항을 `push`하면 Vercel에서 자동으로 빌드 및 재배포됩니다.
 
-```bash
-npm run lint
-```
-
-현재 ESLint 결과는 `0 errors`이며, 기존 실습 파일에 대한 포맷 관련 warning만 남아 있다.
-실습 기록의 코드를 대규모로 포맷팅하지 않고 실제 오류만 제거했다.
-
-자동 수정이 필요한 경우 다음 명령을 사용할 수 있다.
-
-```bash
-npm run lint:fix
-```
-
-## Build
-
-제출용 정적 파일은 다음 명령으로 생성한다.
-
-```bash
-npm run build
-```
-
-빌드 결과는 `dist/` 폴더에 생성된다.
-
-## 정적 파일 Hosting 확인
-
-빌드된 `dist/`를 Vite Preview 서버로 호스팅하여 배포 결과를 확인할 수 있다.
-
-```bash
-npm run preview -- --host 127.0.0.1 --port 4173
-```
-
-브라우저에서 다음 주소로 접속한다.
-
-```text
-http://127.0.0.1:4173/
-```
-
-실제 서버에 배포할 때는 `dist/` 폴더를 정적 파일 서버의 public 디렉터리로 업로드하면 된다.
