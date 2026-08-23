@@ -1,6 +1,6 @@
 # skala-vue 실습
 
-## 배포
+**배포 사이트**
 https://skala-vue-kappa.vercel.app/
 
 ## 실행방법
@@ -17,9 +17,9 @@ npm run dev
 - [Weather Store - Hands on](#weather-store---hands-on)
 - [Weather Axios - Hands on](#weather-axios---hands-on)
 - [Weather UI Library - Hands on](#weather-ui-library---hands-on)
-- [최종 과제](#최종-과제-설명)
+- [최종 과제 설명](#최종-과제-설명)
 - [API 키 및 환경 변수 관리](#api-키-및-환경-변수-관리)
-- [배포](#배포-설정)
+- [배포](#배포)
 
 
 ## Weather Mockup - Hands on
@@ -605,7 +605,7 @@ VITE_WEATHER_API_KEY=your_openweathermap_api_key
 
 ---
 
-## 🚀 배포 설정
+## 배포
 
 - **배포 플랫폼**: Vercel
 - **배포 URL**: https://skala-vue-kappa.vercel.app/
