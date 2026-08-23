@@ -116,7 +116,7 @@ const filteredWeatherList = computed(() => {
 
 // 즐겨찾기
 const favoriteCities = ref(
-  JSON.parse(localStorage.getItem('favoriteCities') || '["서울"]')
+  JSON.parse(localStorage.getItem('favoriteCities') || '[""]')
 )
 
 // 초기 마운트 시 검색어 복원

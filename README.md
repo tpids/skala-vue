@@ -17,7 +17,7 @@ npm run dev
 - [Weather Store - Hands on](#weather-store---hands-on)
 - [Weather Axios - Hands on](#weather-axios---hands-on)
 - [Weather UI Library - Hands on](#weather-ui-library---hands-on)
-- [최종 과제 구성](#최종-과제-구성-정리---hands-on)
+- [최종 과제](#최종-과제)
 - [API 키 및 환경 변수 관리](#api-키-및-환경-변수-관리)
 - [배포](#배포)
 
@@ -88,9 +88,9 @@ const filteredWeatherList = computed(() => {
 
 ---
 
-### 4. Customization 정리
+### 4. 추가 기능 구현
 
-기본 스켈레톤 코드에서 제공된 기능을 기반으로 다음과 같은 기능을 직접 추가했다.
+기본 코드에서 제공된 기능을 기반으로 다음과 같은 기능을 직접 추가했다.
 
 - 광주, 제주 데이터 추가
 - `computed()`를 활용한 검색 결과 계산
@@ -285,10 +285,10 @@ const showDetail = (city) => {
 
 ```
 const favoriteCities = ref(
-  JSON.parse(localStorage.getItem('favoriteCities') || '["서울"]')
+  JSON.parse(localStorage.getItem('favoriteCities') || '[""]')
 )
 ```
-즐겨찾기 설정 및 해제 시 `localStorage`의 데이터를 함께 업데이트하도록 구현했다. 서울을 디폴트 값으로 설정했다.
+즐겨찾기 설정 및 해제 시 `localStorage`의 데이터를 함께 업데이트하도록 구현했다.
 
 #### 즐겨찾기 상태 시각화
 기존에는 즐겨찾기 설정 여부를 상태 메시지로만 확인할 수 있었지만,
@@ -491,7 +491,7 @@ const vuetify = createVuetify({
 
 ---
 
-# 최종 과제 구성 정리 - Hands on
+# 최종 과제
 
 `App.final.vue`를 제출용 진입 화면으로 구성하고, 기존 실습 화면과 분리했다.
 
@@ -527,6 +527,7 @@ OpenWeatherMap의 날씨 응답에서 다음 데이터를 표시한다.
 - 습도
 - 풍속
 - 날씨 아이콘
+- 미세먼지
 
 날씨 상태의 원본 표현인 `튼구름`, `실 비`, `온흐림` 등은
 `normalizeWeatherStatus()`를 통해 `구름`, `비`, `흐림`처럼 간결한 화면용 표현으로 변환했다.
@@ -609,6 +610,3 @@ VITE_WEATHER_API_KEY=your_openweathermap_api_key
 - **배포 플랫폼**: Vercel
 - **배포 URL**: https://skala-vue-kappa.vercel.app/
 - **배포 방식**: GitHub 저장소 연동을 통한 자동 배포
-
-GitHub의 `main` 브랜치에 변경사항을 `push`하면 Vercel에서 자동으로 빌드 및 재배포됩니다.
-
