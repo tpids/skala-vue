@@ -3,19 +3,24 @@
 ## 배포
 https://skala-vue-kappa.vercel.app/
 
+## 실행방법
+```bash
+npm install
+npm run dev
+```
+
 ## 목차
-```
-목차
-├─ Weather Mockup - Hands on
-├─ Weather Composition - Hands on
-├─ Weather Component - Hands on
-├─ Weather Router - Hands on
-├─ Weather Store - Hands on
-├─ Weather Axios - Hands on
-├─ Weather UI Library - Hands on
-├─ 최종 과제 구성
-└─ API 키 및 환경 변수 관리 및 배포
-```
+- [Weather Mockup - Hands on](#weather-mockup---hands-on)
+- [Weather Composition - Hands on](#weather-composition---hands-on)
+- [Weather Component - Hands on](#weather-component---hands-on)
+- [Weather Router - Hands on](#weather-router---hands-on)
+- [Weather Store - Hands on](#weather-store---hands-on)
+- [Weather Axios - Hands on](#weather-axios---hands-on)
+- [Weather UI Library - Hands on](#weather-ui-library---hands-on)
+- [최종 과제 구성](#최종-과제-구성-정리---hands-on)
+- [API 키 및 환경 변수 관리](#api-키-및-환경-변수-관리)
+- [배포](#배포)
+
 
 ## Weather Mockup - Hands on
 
