@@ -17,9 +17,9 @@ npm run dev
 - [Weather Store - Hands on](#weather-store---hands-on)
 - [Weather Axios - Hands on](#weather-axios---hands-on)
 - [Weather UI Library - Hands on](#weather-ui-library---hands-on)
-- [최종 과제](#최종-과제)
+- [최종 과제](#최종-과제-설명)
 - [API 키 및 환경 변수 관리](#api-키-및-환경-변수-관리)
-- [배포](#배포)
+- [배포](#배포-설정)
 
 
 ## Weather Mockup - Hands on
@@ -491,7 +491,7 @@ const vuetify = createVuetify({
 
 ---
 
-# 최종 과제
+# 최종 과제 설명
 
 `App.final.vue`를 제출용 진입 화면으로 구성하고, 기존 실습 화면과 분리했다.
 
@@ -605,7 +605,7 @@ VITE_WEATHER_API_KEY=your_openweathermap_api_key
 
 ---
 
-## 🚀 배포
+## 🚀 배포 설정
 
 - **배포 플랫폼**: Vercel
 - **배포 URL**: https://skala-vue-kappa.vercel.app/
