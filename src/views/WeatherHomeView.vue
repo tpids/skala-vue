@@ -12,6 +12,25 @@ import WeatherCard from '../components/exercise/WeatherCard.vue'
 const router = useRouter()
 const route = useRoute()
 
+const FALLBACK_STATUSES = ['맑음', '구름', '흐림', '비']
+
+const buildFallbackWeather = (city, index) => {
+  const pm25 = 12 + (index % 4) * 10
+
+  return {
+    id: city.id,
+    name: city.name,
+    temp: 22 + (index % 5) * 2,
+    status: FALLBACK_STATUSES[index % FALLBACK_STATUSES.length],
+    humidity: 45 + (index % 5) * 8,
+    wind: Number((1.8 + (index % 5) * 0.9).toFixed(1)),
+    icon: null,
+    pm10: 20 + (index % 5) * 7,
+    pm25,
+    airQualityGrade: getAirQualityGrade(pm25),
+  }
+}
+
 // 날씨 데이터 api 호출
 const weatherList = ref([])
 
@@ -42,7 +61,16 @@ const fetchWeather = async () => {
     }
   }))
 
-  weatherList.value = result.filter(Boolean)
+  const validWeather = result.filter(Boolean)
+
+  if (validWeather.length > 0) {
+    weatherList.value = validWeather
+    return
+  }
+
+  // API 키 미설정/요청 제한 등으로 실시간 조회에 실패하면 기본 데이터를 보여준다.
+  weatherList.value = CITIES.map(buildFallbackWeather)
+  notify('실시간 날씨 연결에 실패하여 예시 데이터를 표시합니다.')
 }
 
 // 검색어 및 선택 상태
