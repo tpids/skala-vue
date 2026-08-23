@@ -4,7 +4,8 @@
 https://skala-vue-kappa.vercel.app/
 
 ## 목차
-📑 목차
+```
+목차
 ├─ Weather Mockup - Hands on
 ├─ Weather Composition - Hands on
 ├─ Weather Component - Hands on
@@ -14,6 +15,7 @@ https://skala-vue-kappa.vercel.app/
 ├─ Weather UI Library - Hands on
 ├─ 최종 과제 구성
 └─ API 키 및 환경 변수 관리 및 배포
+```
 
 ## Weather Mockup - Hands on
 
