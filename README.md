@@ -17,6 +17,7 @@ npm run dev
 - [Weather Store - Hands on](#weather-store---hands-on)
 - [Weather Axios - Hands on](#weather-axios---hands-on)
 - [Weather UI Library - Hands on](#weather-ui-library---hands-on)
+- [Weather Deployment - Hands on](#weather-deployment---hands-on)
 - [최종 과제 설명](#최종-과제-설명)
 - [API 키 및 환경 변수 관리](#api-키-및-환경-변수-관리)
 - [배포](#배포)
@@ -488,6 +489,29 @@ const vuetify = createVuetify({
   },
 })
 ```
+
+---
+
+# Weather Deployment - Hands on
+
+## 코드 품질 관리
+
+ESLint를 적용하여 JavaScript 및 Vue 파일의 코드 품질을 검사하도록 구성했다.
+
+`eslint.config.js`를 통해 ESLint 권장 규칙과 Vue 권장 규칙을 적용하고,
+프로젝트에 맞지 않는 일부 규칙은 조정했다.
+
+### ESLint 실행
+
+```bash
+# 코드 검사
+npm run lint
+
+# 자동 수정
+npm run lint:fix
+```
+
+현재 ESLint 검사를 통해 사용하지 않는 변수, Vue 문법 및 코드 작성 규칙 등을 확인할 수 있도록 구성했다.
 
 ---
 
